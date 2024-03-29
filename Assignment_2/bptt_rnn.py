@@ -127,7 +127,7 @@ def append_zero_to_sublists(input_list):
 
 ################### Extract the Y values for the Training set
 # Example usage:
-json_file_path = 'train.jsonl'  # Replace with your JSON file path
+json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -139,14 +139,14 @@ Y=values
 # print(f"Values pertaining to key '{key_to_extract}': {values[:5]}")
 
 ##### Do the same for the test dataset
-json_file_path = 'test.jsonl'  # Replace with your JSON file path
+json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
 
 ################ Has all the Y values for the training dataset
 
-Y_test=values
+Y_test_full=values
 # Here we can print all the values that were extracted, i.e., the first 5 values of the chunk tags
 # print(f"Values pertaining to key '{key_to_extract}': {values[:5]}")
 
@@ -156,7 +156,7 @@ Y_test=values
 ############### For the train Array_X values
 
 # Example usage:
-json_file_path = 'train.jsonl'  # Replace with your JSON file path
+json_file_path =  r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  #'train.jsonl'  Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -167,7 +167,7 @@ X = values
 
 # Example usage:
 input_list_X = X
-append_zero_to_sublists(input_list_X)
+append_zero_to_sublists(input_list_X) # done to indicate beginning if sentence
 # print("Modified List:")
 # print(input_list_X)
 
@@ -192,7 +192,7 @@ array_X = [np.array(sublist) for sublist in encoded_list]
 
 
 # Example usage:
-json_file_path = 'test.jsonl'  # Replace with your JSON file path
+json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -516,7 +516,7 @@ print("Total number of training samples in array_X == ",len(array_X))
 print("Total number of training samples in Y == ",len(Y))
 
 print("Total number of testing samples in array_X_test == ",len(array_X_test))
-print("Total number of testing samples in Y_test == ",len(Y_test))
+print("Total number of testing samples in Y_test == ",len(Y_test_full))
 
 print("array_X == ",array_X[1])
 
@@ -570,7 +570,7 @@ for i in range(FOLD):
 np.random.seed(42)
 grad_check_vocab_size = 4
 model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 4)
-model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test, learning_rate = 0.01, nepoch = 2, evaluate_loss_after = 1)
+model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.01, nepoch = 2, evaluate_loss_after = 1)
 
 file_name = f'history/model_final.pkl'
 
@@ -584,5 +584,5 @@ print("Inference from loaded model ==>")
 with open (f'history/model_final.pkl', 'rb' ) as f:
     model_final = pickle.load(f)
 
-inference_test(model_final, array_X_test, Y_test)
+inference_test(model_final, array_X_test, Y_test_full)
 
