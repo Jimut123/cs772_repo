@@ -128,7 +128,7 @@ def append_zero_to_sublists(input_list):
 ################### Extract the Y values for the Training set
 # Example usage:
 # json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  # Replace with your JSON file path
-json_file_path = 'train.jsonl'  # Replace with your JSON file path
+json_file_path = '../train.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -141,7 +141,7 @@ Y=values
 
 ##### Do the same for the test dataset
 # json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
-json_file_path = 'test.jsonl'  # Replace with your JSON file path
+json_file_path = '../test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -159,7 +159,7 @@ Y_test_full=values
 
 # Example usage:
 # json_file_path =  r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  #'train.jsonl'  Replace with your JSON file path
-json_file_path =  'train.jsonl'  #'train.jsonl'  Replace with your JSON file path
+json_file_path =  '../train.jsonl'  #'train.jsonl'  Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -196,7 +196,7 @@ array_X = [np.array(sublist) for sublist in encoded_list]
 
 # Example usage:
 # json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
-json_file_path = 'test.jsonl'  # Replace with your JSON file path
+json_file_path = '../test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
