@@ -51,8 +51,12 @@ def recall(result, reference):
 
     return recall
 
-def f1_score(p, r):
-  return (2*p*r)/(p+r)
+def f1_score(p, r): 
+    try:
+        f1 = (2*p*r)/(p+r)
+    except ZeroDivisionError:
+        f1 = 0.0
+    return f1
 
 
 
@@ -252,7 +256,8 @@ print(o.shape)
 print(o)'''
 
 predictions = model.predict(array_X[0])
-# print(predictions.shape)
+# print("True = ",Y[0])
+# print("pred = ",predictions.shape)
 # print(predictions)
 
 
@@ -276,7 +281,8 @@ def calculate_total_loss(self, x, y):
 
 def calculate_loss(self, x, y):
     # divide the total loss by the number of training examples
-    N = np.sum((len(y_i) for y_i in y))
+    # N = np.sum((len(y_i) for y_i in y))
+    N  = np.sum(np.fromiter((len(y_i) for y_i in y), dtype=int))
     return self.calculate_total_loss(x, y)/N
 
 RNNNumpy.calculate_total_loss = calculate_total_loss
@@ -409,7 +415,7 @@ RNNNumpy.sgd_step = numpy_sgd_step
  - evaluate_loss_after:
 '''
 
-def train_with_sgd(model, X_train, y_train, learning_rate = 0.005, nepoch = 100, evaluate_loss_after = 5):
+def train_with_sgd(model, X_train, y_train, X_test, y_test, learning_rate = 0.005, nepoch = 100, evaluate_loss_after = 5):
     # keep track of the losses so that we can plot them later
     losses = []
     num_examples_seen = 0
@@ -430,13 +436,42 @@ def train_with_sgd(model, X_train, y_train, learning_rate = 0.005, nepoch = 100,
             # one sgd step
             model.sgd_step(X_train[i], y_train[i], learning_rate)
             num_examples_seen += 1
+        # make the inference here
+        inference_test(model, X_test, y_test)
     # to return the 2nd index of the losses list
     return model, [tup[1] for tup in losses]
+
+def inference_test(model, X_test, y_test):
+    total_accuracy = 0
+    total_precision = 0
+    total_recall = 0
+    total_f1 = 0
+    for i, y_true in zip(np.arange(len(y_test)), y_test):
+        # print("X_test == ",X_test[i])
+        pred = model.predict(X_test[i])
+        # print("prediction == ",pred," True == ",y_true)
+        accuracy = accuracy_score(y_true, pred)
+        prec = precision(y_true, pred)
+        rec = recall(y_true, pred)
+        f1 = f1_score(prec, rec)
+        total_accuracy += accuracy
+        total_precision += prec
+        total_recall += rec
+        total_f1 += f1
+    ACCURACY = total_accuracy/len(y_test)
+    PRECISION = total_precision/len(y_test)
+    RECALL = total_recall/len(y_test)
+    F1 = total_f1/len(y_test)
+    print("Mean Accuracy == ",ACCURACY)
+    print("Mean Precision == ",PRECISION)
+    print("Mean Recall == ",RECALL)
+    print("Mean F1 == ",F1)
+
 
 # model = RNNNumpy(vocabulary_size)
 # %timeit model.sgd_step(array_X[1], Y[1], 0.005)
 
-model = RNNNumpy(vocabulary_size)
+
 
 print("------------------- Start of Code -------------------")
 
@@ -446,8 +481,26 @@ print("Total number of training samples in Y == ",len(Y))
 print("Total number of testing samples in array_X_test == ",len(array_X_test))
 print("Total number of testing samples in Y_test == ",len(Y_test))
 
-model, history = train_with_sgd(model, array_X[:100], Y[:100], learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
+print("array_X == ",array_X[1])
 
-print("history == ",history)
+
+FOLD = 5
+SAMPLES_PER_FOLD = len(array_X)//FOLD
+
+for i in range(FOLD):
+    print("------------------------------- FOLD NUMBER = ",i+1)
+    print("0 : ",i*SAMPLES_PER_FOLD," add with ",(i+1)*SAMPLES_PER_FOLD," : ",len(array_X))
+    X_train = array_X[:i*SAMPLES_PER_FOLD] + array_X[(i+1)*SAMPLES_PER_FOLD:]
+    Y_train = Y[:i*SAMPLES_PER_FOLD] + Y[(i+1)*SAMPLES_PER_FOLD:]
+
+    X_test = array_X[i*SAMPLES_PER_FOLD:(i+1)*SAMPLES_PER_FOLD]
+    Y_test = Y[i*SAMPLES_PER_FOLD:(i+1)*SAMPLES_PER_FOLD]
+    print("Length of X_train == ",len(X_train),"Length of Y_train == ",len(Y_train))
+    print("Length of X_test == ",len(X_test),"Length of Y_test == ",len(Y_test))
+
+    # print("X_train == ",X_train,"Y_train == ",Y_train)
+    model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
+
+# print("history == ",history)
 
 
