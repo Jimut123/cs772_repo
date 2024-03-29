@@ -521,6 +521,7 @@ print("Total number of testing samples in Y_test == ",len(Y_test))
 print("array_X == ",array_X[1])
 
 
+
 FOLD = 5
 SAMPLES_PER_FOLD = len(array_X)//FOLD
 
@@ -542,7 +543,7 @@ for i in range(FOLD):
     np.random.seed(42)
     model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
 
-    model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.01, nepoch = 10, evaluate_loss_after = 1)
+    model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.01, nepoch = 2, evaluate_loss_after = 1)
 
     file_name = f'history/model_fold_{i}.pkl'
 
@@ -563,10 +564,13 @@ for i in range(FOLD):
 # print("history == ",history)
 
 
+
+
 #### Now check the accuracy, precision, recall, f1-score for the whole dataset
 np.random.seed(42)
-model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
-model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test, learning_rate = 0.01, nepoch = 10, evaluate_loss_after = 1)
+grad_check_vocab_size = 4
+model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 4)
+model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test, learning_rate = 0.01, nepoch = 2, evaluate_loss_after = 1)
 
 file_name = f'history/model_final.pkl'
 
@@ -580,5 +584,5 @@ print("Inference from loaded model ==>")
 with open (f'history/model_final.pkl', 'rb' ) as f:
     model_final = pickle.load(f)
 
-inference_test(model_final, X_test, Y_test)
+inference_test(model_final, array_X_test, Y_test)
 
