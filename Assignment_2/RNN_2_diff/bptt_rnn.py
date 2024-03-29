@@ -28,7 +28,7 @@ FOLDER_NAME = "history"
 try:
     rem = input("Do you want to remove the history folder (y/n) : ")
     if rem == 'y':
-        shutil.rmtree('checkpoint')
+        shutil.rmtree('history')
 except OSError as e:
     print ("Error: %s - %s." % (e.filename, e.strerror))
 
@@ -127,7 +127,8 @@ def append_zero_to_sublists(input_list):
 
 ################### Extract the Y values for the Training set
 # Example usage:
-json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  # Replace with your JSON file path
+# json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  # Replace with your JSON file path
+json_file_path = 'train.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -139,7 +140,8 @@ Y=values
 # print(f"Values pertaining to key '{key_to_extract}': {values[:5]}")
 
 ##### Do the same for the test dataset
-json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
+# json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
+json_file_path = 'test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -156,7 +158,8 @@ Y_test_full=values
 ############### For the train Array_X values
 
 # Example usage:
-json_file_path =  r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  #'train.jsonl'  Replace with your JSON file path
+# json_file_path =  r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  #'train.jsonl'  Replace with your JSON file path
+json_file_path =  'train.jsonl'  #'train.jsonl'  Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -192,7 +195,8 @@ array_X = [np.array(sublist) for sublist in encoded_list]
 
 
 # Example usage:
-json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
+# json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
+json_file_path = 'test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -479,7 +483,7 @@ def train_with_sgd(model, X_train, y_train, X_test, y_test, learning_rate = 0.00
     return model, [tup[1] for tup in losses]
 
 
-def inference_test(model, X_test, y_test):
+def inference_test(model, X_test, y_test, save_dump = False, fold_number = 0):
     total_accuracy = 0
     total_precision = 0
     total_recall = 0
@@ -505,6 +509,10 @@ def inference_test(model, X_test, y_test):
     print("Mean Recall == ",RECALL)
     print("Mean F1 == ",F1)
 
+    if save_dump:
+        with open(f'history/test_metrics_fold_{fold_number}.txt', 'a') as file:
+            file.write(f'Accuracy: {ACCURACY} \n Precision: {PRECISION} \n Recall: {RECALL} \n F1: {F1}\n')
+
 
 # model = RNNNumpy(vocabulary_size)
 # %timeit model.sgd_step(array_X[1], Y[1], 0.005)
@@ -524,6 +532,12 @@ print("array_X == ",array_X[1])
 
 FOLD = 5
 SAMPLES_PER_FOLD = len(array_X)//FOLD
+
+indices = np.random.permutation(len(array_X))
+# print("Indices == ",indices)
+
+array_X = [array_X[i] for i in indices]
+Y = [Y[i] for i in indices]
 
 for i in range(FOLD):
     print("------------------------------- FOLD NUMBER = ",i+1)
@@ -558,7 +572,7 @@ for i in range(FOLD):
     print("Inference from loaded model ==>")
     with open (f'history/model_fold_{i}.pkl', 'rb' ) as f:
         model_loaded = pickle.load(f)
-    inference_test(model_loaded, X_test, Y_test)
+    inference_test(model_loaded, X_test, Y_test, save_dump=True, fold_number=i)
 
 
 # print("history == ",history)
@@ -584,5 +598,5 @@ print("Inference from loaded model ==>")
 with open (f'history/model_final.pkl', 'rb' ) as f:
     model_final = pickle.load(f)
 
-inference_test(model_final, array_X_test, Y_test_full)
+inference_test(model_final, array_X_test, Y_test_full, save_dump=True, fold_number='final')
 
