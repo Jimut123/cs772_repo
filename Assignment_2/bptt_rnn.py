@@ -1,10 +1,8 @@
 """
-STEP-1 READ JSON FILE FOR POS TAG
-STEP-2 READ JSON FILE FOR CHUNK TAG
-STEP-3 APPEND O'S IN FRONT OF ALLS SUBLIST IN POS TAG INDICATING THE BEGINNING OF SENTENCE
-STEP-4 GET ONE-HOT ENCODING FOR POS TAGS
-STEP-5 WRITE FORWARD PASS FOR FF
-STEP-6
+# TODO:
+    1. 5-fold cross validation
+    2. Save the model for each of the folds
+    3. Calculate the accuracy, precision, recall, f1-score for each of the folds
 """
 
 import sys
@@ -432,7 +430,8 @@ def train_with_sgd(model, X_train, y_train, learning_rate = 0.005, nepoch = 100,
             # one sgd step
             model.sgd_step(X_train[i], y_train[i], learning_rate)
             num_examples_seen += 1
-
+    # to return the 2nd index of the losses list
+    return model, [tup[1] for tup in losses]
 
 # model = RNNNumpy(vocabulary_size)
 # %timeit model.sgd_step(array_X[1], Y[1], 0.005)
@@ -446,8 +445,9 @@ print("Total number of training samples in Y == ",len(Y))
 
 print("Total number of testing samples in array_X_test == ",len(array_X_test))
 print("Total number of testing samples in Y_test == ",len(Y_test))
-losses = train_with_sgd(model, array_X[:100], Y[:100], learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
 
+model, history = train_with_sgd(model, array_X[:100], Y[:100], learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
 
+print("history == ",history)
 
 
