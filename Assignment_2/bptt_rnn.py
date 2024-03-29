@@ -204,11 +204,25 @@ class RNNNumpy():
         self.word_dim = word_dim
         self.hidden_dim = hidden_dim
         self.bptt_truncate = bptt_truncate
-        # random initiate the parameters
-        self.I = np.random.uniform(-np.sqrt(1./word_dim), np.sqrt(1./word_dim), (hidden_dim, word_dim)) #WEIGHT FROM CURRENT INPUT TO HIDDEN
-        self.H = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim, hidden_dim)) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
-        self.S = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim,word_dim+1)) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
-        self.bias = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim),(1,1))
+
+        # random initiate the parameters - Original version
+        # self.I = np.random.uniform(-np.sqrt(1./word_dim), np.sqrt(1./word_dim), (hidden_dim, word_dim)) #WEIGHT FROM CURRENT INPUT TO HIDDEN
+        # self.H = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim, hidden_dim)) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
+        # self.S = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim,word_dim+1)) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
+        # self.bias = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim),(1,1))
+
+        # random initiate the parameters - version - 2
+        self.I = np.random.uniform(-1, 1, (hidden_dim, word_dim)) #WEIGHT FROM CURRENT INPUT TO HIDDEN
+        self.H = np.random.uniform(-1, 1, (hidden_dim, hidden_dim)) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
+        self.S = np.random.uniform(-1, 1, (hidden_dim,word_dim+1)) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
+        self.bias = np.random.uniform(-1, 1,(1,1))
+
+        # bad performing 
+        # self.I = np.random.randn(hidden_dim, word_dim) #WEIGHT FROM CURRENT INPUT TO HIDDEN
+        # self.H = np.random.randn(hidden_dim, hidden_dim) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
+        # self.S = np.random.randn(hidden_dim,word_dim+1) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
+        # self.bias = np.random.randn(1,1)
+
 
 
 ## 1. forward propagation
@@ -229,7 +243,11 @@ def forward_propagation(self, x):
     o = np.zeros((T-1, 1))
     for t in range(1,T):
         # we are indexing U by x[t]. it is the same as multiplying U with a one-hot vector
+
+        # s[t] = np.tanh(self.I.dot(x[t][1:]) + self.H.dot(s[t-1])+self.S.dot(x[t-1])+self.bias)
+
         s[t] = np.tanh(self.I.dot(x[t][1:]) + self.H.dot(s[t-1])+self.S.dot(x[t-1])+self.bias)
+
         o[t-1] = sigmoid(s[t])
     o = list(itertools.chain(*o))
     s = list(itertools.chain(*s))
@@ -499,7 +517,9 @@ for i in range(FOLD):
     print("Length of X_test == ",len(X_test),"Length of Y_test == ",len(Y_test))
 
     # print("X_train == ",X_train,"Y_train == ",Y_train)
-    model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
+    # model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
+
+    model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.01, nepoch = 10, evaluate_loss_after = 1)
 
 # print("history == ",history)
 
