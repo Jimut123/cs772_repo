@@ -5,8 +5,11 @@
     3. Calculate the accuracy, precision, recall, f1-score for each of the folds
 """
 
+import os
 import sys
 import json
+import shutil
+import pickle
 import itertools
 import operator
 import numpy as np
@@ -17,6 +20,24 @@ np.random.seed(42)
 ############################################
 ############################################
 # Define the metrics here
+
+
+
+FOLDER_NAME = "history"
+
+try:
+    rem = input("Do you want to remove the history folder (y/n) : ")
+    if rem == 'y':
+        shutil.rmtree('checkpoint')
+except OSError as e:
+    print ("Error: %s - %s." % (e.filename, e.strerror))
+
+try:
+    os.makedirs(FOLDER_NAME)
+except:
+    pass
+
+
 
 def precision(result, reference):
     result = np.array(result)
@@ -403,9 +424,7 @@ RNNNumpy.gradient_check = gradient_check
 
 
 
-grad_check_vocab_size = 4
-# np.random.seed(10)
-model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
+
 
 ## 4. SGD implementation
 '''
@@ -459,6 +478,7 @@ def train_with_sgd(model, X_train, y_train, X_test, y_test, learning_rate = 0.00
     # to return the 2nd index of the losses list
     return model, [tup[1] for tup in losses]
 
+
 def inference_test(model, X_test, y_test):
     total_accuracy = 0
     total_precision = 0
@@ -490,7 +510,6 @@ def inference_test(model, X_test, y_test):
 # %timeit model.sgd_step(array_X[1], Y[1], 0.005)
 
 
-
 print("------------------- Start of Code -------------------")
 
 print("Total number of training samples in array_X == ",len(array_X))
@@ -519,8 +538,47 @@ for i in range(FOLD):
     # print("X_train == ",X_train,"Y_train == ",Y_train)
     # model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
 
+    grad_check_vocab_size = 4
+    np.random.seed(42)
+    model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
+
     model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.01, nepoch = 10, evaluate_loss_after = 1)
+
+    file_name = f'history/model_fold_{i}.pkl'
+
+    with open(file_name, 'wb') as file:
+        pickle.dump(model, file)
+        print(f'Weights successfully saved to "{file_name}"')
+
+    with open("history/test_logs_fold_{}.txt".format(i), "a") as text_file:
+        text_file.write("{} \n".format(history))
+
+    ############# Load the model here and check the inference
+    print("Inference from loaded model ==>")
+    with open (f'history/model_fold_{i}.pkl', 'rb' ) as f:
+        model_loaded = pickle.load(f)
+    inference_test(model_loaded, X_test, Y_test)
+
 
 # print("history == ",history)
 
+
+#### Now check the accuracy, precision, recall, f1-score for the whole dataset
+np.random.seed(42)
+model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
+model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test, learning_rate = 0.01, nepoch = 10, evaluate_loss_after = 1)
+
+file_name = f'history/model_final.pkl'
+
+with open(file_name, 'wb') as file:
+    pickle.dump(model, file)
+    print(f'Weights successfully saved to "{file_name}"')
+
+############# Load the model here and check the inference
+print("Inference from loaded model ==>")
+
+with open (f'history/model_final.pkl', 'rb' ) as f:
+    model_final = pickle.load(f)
+
+inference_test(model_final, X_test, Y_test)
 
