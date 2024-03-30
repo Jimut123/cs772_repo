@@ -563,7 +563,7 @@ for i in range(FOLD):
     np.random.seed(42)
     model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
 
-    model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.01, nepoch = 100, evaluate_loss_after = 1)
+    model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.001, nepoch = 100, evaluate_loss_after = 1)
 
     file_name = f'history/model_fold_{i}.pkl'
 
@@ -590,7 +590,7 @@ for i in range(FOLD):
 np.random.seed(42)
 grad_check_vocab_size = 4
 model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 4)
-model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.01, nepoch = 100, evaluate_loss_after = 1)
+model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.001, nepoch = 100, evaluate_loss_after = 1)
 
 file_name = f'history/model_final.pkl'
 
