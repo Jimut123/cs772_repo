@@ -55,23 +55,23 @@ for fold_no, col_p in zip(range(5), colors):
     plt.tight_layout()
 
 
-file_path = "history/test_logs_final.txt"  # replace 'your_file.txt' with the actual file path
+# file_path = "history/test_logs_final.txt"  # replace 'your_file.txt' with the actual file path
 
-history_data = []
-with open(file_path, 'r') as file:
-    history_data = file.read()
+# history_data = []
+# with open(file_path, 'r') as file:
+#     history_data = file.read()
 
-# Remove square brackets and split the string by commas
-history_data_cleaned = history_data.strip('[').replace(' ', '')
-history_data_cleaned = history_data_cleaned.strip('] \n').replace(' ', '')
-print(history_data_cleaned)
-history_list = [float(x) for x in history_data_cleaned.split(',')]
+# # Remove square brackets and split the string by commas
+# history_data_cleaned = history_data.strip('[').replace(' ', '')
+# history_data_cleaned = history_data_cleaned.strip('] \n').replace(' ', '')
+# print(history_data_cleaned)
+# history_list = [float(x) for x in history_data_cleaned.split(',')]
 
-plt.plot(history_list,'-', color=colors[-1],linewidth=3.0)
-plt.tight_layout()
+# plt.plot(history_list,'-', color=colors[-1],linewidth=3.0)
+# plt.tight_layout()
 
 
-plt.legend([f'Fold = {i+1}' for i in range(5)]+['Final'], loc='upper right',fontsize=20)
+# plt.legend([f'Fold = {i+1}' for i in range(5)]+['Final'], loc='upper right',fontsize=20)
 
 plt.savefig("Train_Loss_full.png", bbox_inches='tight', dpi=500)
 # plt.savefig("Train_Loss_full.eps", bbox_inches='tight', dpi=500)
