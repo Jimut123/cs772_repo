@@ -6,3 +6,8 @@ Accuracy: 62.46 19.28
   Precision: 83.91 13.52 
  Recall: 66.84 23.66 
  F1: 0.71 0.19 
+
+Accuracy: 64.35 
+  Precision: 78.00 
+ Recall: 71.38 
+ F1: 74.54 
