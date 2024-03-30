@@ -594,6 +594,9 @@ model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, le
 
 file_name = f'history/model_final.pkl'
 
+with open("history/test_logs_final.txt".format(i), "a") as text_file:
+    text_file.write("{} \n".format(history))
+
 with open(file_name, 'wb') as file:
     pickle.dump(model, file)
     print(f'Weights successfully saved to "{file_name}"')

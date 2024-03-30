@@ -592,6 +592,9 @@ grad_check_vocab_size = 4
 model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 4)
 model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.001, nepoch = 100, evaluate_loss_after = 1)
 
+with open("history/test_logs_final.txt".format(i), "a") as text_file:
+    text_file.write("{} \n".format(history))
+
 file_name = f'history/model_final.pkl'
 
 with open(file_name, 'wb') as file:
