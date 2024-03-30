@@ -482,42 +482,14 @@ def train_with_sgd(model, X_train, y_train, X_test, y_test, learning_rate = 0.00
 
 
 def inference_test_msd(model, X_test, y_test, save_dump = False, fold_number = 0):
-    ACC_LIST = []
-    PREC_LIST = []
-    REC_LIST = []
-    F1_LIST = []
     for i, y_true in zip(np.arange(len(y_test)), y_test):
-        # print("X_test == ",X_test[i])
+        print("X_test == ",X_test[i])
+        print("X_test shape == ",X_test[i].shape)
         pred = model.predict(X_test[i])
-        # print("prediction == ",pred," True == ",y_true)
-        accuracy = accuracy_score(y_true, pred)
-        prec = precision(y_true, pred)
-        rec = recall(y_true, pred)
-        f1 = f1_score(prec, rec)
-        ACC_LIST.append(accuracy)
-        PREC_LIST.append(prec)
-        REC_LIST.append(rec)
-        F1_LIST.append(f1)
-    mean_acc = statistics.mean(ACC_LIST)*100
-    std_dev_acc = statistics.stdev(ACC_LIST)*100
+        break
 
-    mean_prec = statistics.mean(PREC_LIST)*100
-    std_dev_prec = statistics.stdev(PREC_LIST)*100
 
-    mean_rec = statistics.mean(REC_LIST)*100
-    std_dev_rec = statistics.stdev(REC_LIST)*100
 
-    mean_f1 = statistics.mean(F1_LIST)
-    std_dev_f1 = statistics.stdev(F1_LIST)
-
-    print("Accuracy Mean (sd) {:.2f} {:.2f} ".format(mean_acc,std_dev_acc))
-    print("Precision Mean (sd) {:.2f} {:.2f} ".format(mean_prec,std_dev_prec))
-    print("Recall Mean (sd) {:.2f} {:.2f}".format(mean_rec,std_dev_rec))
-    print("F1 Mean (sd) {:.2f} {:.2f}".format(mean_f1,std_dev_f1))
-
-    if save_dump:
-        with open(f'history/test_metrics_fold_{fold_number}.txt', 'a') as file:
-            file.write(f'Accuracy: {mean_acc:.2f} {std_dev_acc:.2f} \n  Precision: {mean_prec:.2f} {std_dev_prec:.2f} \n Recall: {mean_rec:.2f} {std_dev_rec:.2f} \n F1: {mean_f1:.2f} {std_dev_f1:.2f} \n')
 
 
 # model = RNNNumpy(vocabulary_size)
@@ -526,96 +498,61 @@ def inference_test_msd(model, X_test, y_test, save_dump = False, fold_number = 0
 
 print("------------------- Start of Code -------------------")
 
-print("Total number of training samples in array_X == ",len(array_X))
-print("Total number of training samples in Y == ",len(Y))
 
-print("Total number of testing samples in array_X_test == ",len(array_X_test))
-print("Total number of testing samples in Y_test == ",len(Y_test_full))
+def inference_test_error_analysis(model, X_instance, Y_instance):
 
-print("array_X == ",array_X[1])
+    pred = model.predict(X_instance)
 
-
-
-FOLD = 5
-SAMPLES_PER_FOLD = len(array_X)//FOLD
-
-indices = np.random.permutation(len(array_X))
-# print("Indices == ",indices)
-
-array_X = [array_X[i] for i in indices]
-Y = [Y[i] for i in indices]
-
-for i in range(FOLD):
-    print("------------------------------- FOLD NUMBER = ",i+1)
-    print("0 : ",i*SAMPLES_PER_FOLD," add with ",(i+1)*SAMPLES_PER_FOLD," : ",len(array_X))
-    X_train = array_X[:i*SAMPLES_PER_FOLD] + array_X[(i+1)*SAMPLES_PER_FOLD:]
-    Y_train = Y[:i*SAMPLES_PER_FOLD] + Y[(i+1)*SAMPLES_PER_FOLD:]
-
-    X_test = array_X[i*SAMPLES_PER_FOLD:(i+1)*SAMPLES_PER_FOLD]
-    Y_test = Y[i*SAMPLES_PER_FOLD:(i+1)*SAMPLES_PER_FOLD]
-    print("Length of X_train == ",len(X_train),"Length of Y_train == ",len(Y_train))
-    print("Length of X_test == ",len(X_test),"Length of Y_test == ",len(Y_test))
-
-    # print("X_train == ",X_train,"Y_train == ",Y_train)
-    # model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.005, nepoch = 10, evaluate_loss_after = 1)
-
-    grad_check_vocab_size = 4
-    np.random.seed(42)
-    model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
-
-    # model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.01, nepoch = 100, evaluate_loss_after = 1)
-
-    # file_name = f'history/model_fold_{i}.pkl'
-
-    # with open(file_name, 'wb') as file:
-    #     pickle.dump(model, file)
-    #     print(f'Weights successfully saved to "{file_name}"')
-
-    # with open("history/test_logs_fold_{}.txt".format(i), "a") as text_file:
-    #     text_file.write("{} \n".format(history))
-
-    ############# Load the model here and check the inference
-    print("Inference from loaded model ==>")
-    with open (f'history/model_fold_{i}.pkl', 'rb' ) as f:
-        model_loaded = pickle.load(f)
-    inference_test_msd(model_loaded, X_test, Y_test, save_dump=True, fold_number=i)
+    print("True value = ",Y_instance)
+    # print("True value shape = ",Y_instance.shape)
+    print("Predicted value = ",pred)
 
 
-for i in range(FOLD):
-    print("------------------------------- FOLD NUMBER = ",i+1)
-    print("0 : ",i*SAMPLES_PER_FOLD," add with ",(i+1)*SAMPLES_PER_FOLD," : ",len(array_X))
-    X_train = array_X[:i*SAMPLES_PER_FOLD] + array_X[(i+1)*SAMPLES_PER_FOLD:]
-    Y_train = Y[:i*SAMPLES_PER_FOLD] + Y[(i+1)*SAMPLES_PER_FOLD:]
+    # ACC_LIST = []
+    # PREC_LIST = []
+    # REC_LIST = []
+    # F1_LIST = []
+    # for i, y_true in zip(np.arange(len(y_test)), y_test):
+    #     # print("X_test == ",X_test[i])
+    #     pred = model.predict(X_test[i])
+    #     # print("prediction == ",pred," True == ",y_true)
+    #     accuracy = accuracy_score(y_true, pred)
+    #     prec = precision(y_true, pred)
+    #     rec = recall(y_true, pred)
+    #     f1 = f1_score(prec, rec)
+    #     ACC_LIST.append(accuracy)
+    #     PREC_LIST.append(prec)
+    #     REC_LIST.append(rec)
+    #     F1_LIST.append(f1)
+    # mean_acc = statistics.mean(ACC_LIST)*100
+    # std_dev_acc = statistics.stdev(ACC_LIST)*100
 
-    print("Length of X_train == ",len(X_train),"Length of Y_train == ",len(Y_train))
+    # mean_prec = statistics.mean(PREC_LIST)*100
+    # std_dev_prec = statistics.stdev(PREC_LIST)*100
 
-    grad_check_vocab_size = 4
-    np.random.seed(42)
-    model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
+    # mean_rec = statistics.mean(REC_LIST)*100
+    # std_dev_rec = statistics.stdev(REC_LIST)*100
 
-    ############# Load the model here and check the inference
-    print("Inference from loaded model ==>")
-    with open (f'history/model_fold_{i}.pkl', 'rb' ) as f:
-        model_loaded = pickle.load(f)
-    dump_i = "test_"+str(i)
-    inference_test_msd(model_loaded, array_X_test, Y_test_full, save_dump=True, fold_number=dump_i)
+    # mean_f1 = statistics.mean(F1_LIST)
+    # std_dev_f1 = statistics.stdev(F1_LIST)
 
-# print("history == ",history)
+    # print("Accuracy Mean (sd) {:.2f} {:.2f} ".format(mean_acc,std_dev_acc))
+    # print("Precision Mean (sd) {:.2f} {:.2f} ".format(mean_prec,std_dev_prec))
+    # print("Recall Mean (sd) {:.2f} {:.2f}".format(mean_rec,std_dev_rec))
+    # print("F1 Mean (sd) {:.2f} {:.2f}".format(mean_f1,std_dev_f1))
+
+    # if save_dump:
+    #     with open(f'history/test_metrics_fold_{fold_number}.txt', 'a') as file:
+    #         file.write(f'Accuracy: {mean_acc:.2f} {std_dev_acc:.2f} \n  Precision: {mean_prec:.2f} {std_dev_prec:.2f} \n Recall: {mean_rec:.2f} {std_dev_rec:.2f} \n F1: {mean_f1:.2f} {std_dev_f1:.2f} \n')
 
 
 
 
-#### Now check the accuracy, precision, recall, f1-score for the whole dataset
+### Now check the accuracy, precision, recall, f1-score for the whole dataset
 np.random.seed(42)
 grad_check_vocab_size = 4
 model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 4)
-# model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.01, nepoch = 100, evaluate_loss_after = 1)
 
-# file_name = f'history/model_final.pkl'
-
-# with open(file_name, 'wb') as file:
-#     pickle.dump(model, file)
-#     print(f'Weights successfully saved to "{file_name}"')
 
 ############# Load the model here and check the inference
 print("Inference from loaded model ==>")
@@ -624,4 +561,47 @@ with open (f'history/model_final.pkl', 'rb' ) as f:
     model_final = pickle.load(f)
 
 inference_test_msd(model_final, array_X_test, Y_test_full, save_dump=True, fold_number='final')
+
+
+
+import json
+
+# Open the JSON file
+with open('../test.jsonl', 'r') as file:
+    # Read each line (each line represents a JSON object) and process it
+    for line in file:
+        # Parse the JSON object
+        data = json.loads(line)
+        
+        # Access the tokens, chunk_tags, and pos_tags
+        tokens = data['tokens']
+        chunk_tags = data['chunk_tags']
+        pos_tags = data['pos_tags']
+        
+        # Print or process the data as needed
+        print("Tokens:", tokens)
+        print("Chunk Tags:", chunk_tags)
+        print("POS Tags:", pos_tags)
+
+        X_instance = input_to_5bit_encoder([pos_tags])
+        X_instance = np.array(X_instance[0])
+        print("X_instance == ",X_instance)
+        Y_instance = [chunk_tags]
+        inference_test_error_analysis(model, X_instance, Y_instance[0])
+
+
+        break
+
+
+
+
+
+
+
+
+
+
+
+
+
 
