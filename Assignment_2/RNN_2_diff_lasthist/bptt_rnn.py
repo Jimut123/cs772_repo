@@ -584,11 +584,11 @@ print("array_X == ",array_X[1])
 np.random.seed(42)
 grad_check_vocab_size = 4
 model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 4)
-model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.01, nepoch = 100, evaluate_loss_after = 1)
+model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.01, nepoch = 1, evaluate_loss_after = 1)
 
 file_name = f'history/model_final.pkl'
 
-with open("history/test_logs_final.txt".format(i), "a") as text_file:
+with open("history/test_logs_final.txt", "a") as text_file:
     text_file.write("{} \n".format(history))
 
 with open(file_name, 'wb') as file:
