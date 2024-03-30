@@ -144,7 +144,7 @@ key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
 
-################ Has all the Y values for the training dataset
+################ Has all the Y values for the test dataset
 
 Y_test_full=values
 # Here we can print all the values that were extracted, i.e., the first 5 values of the chunk tags
@@ -217,7 +217,7 @@ encoded_list = input_to_5bit_encoder(input_list)
 # quit()
 
 
-############# The full X dataset for training
+############# The full X dataset for testing
 # Convert each sublist into a NumPy array -> Has the X for the full dataset
 array_X_test = [np.array(sublist) for sublist in encoded_list]
 
@@ -580,6 +580,25 @@ for i in range(FOLD):
         model_loaded = pickle.load(f)
     inference_test_msd(model_loaded, X_test, Y_test, save_dump=True, fold_number=i)
 
+
+for i in range(FOLD):
+    print("------------------------------- FOLD NUMBER = ",i+1)
+    print("0 : ",i*SAMPLES_PER_FOLD," add with ",(i+1)*SAMPLES_PER_FOLD," : ",len(array_X))
+    X_train = array_X[:i*SAMPLES_PER_FOLD] + array_X[(i+1)*SAMPLES_PER_FOLD:]
+    Y_train = Y[:i*SAMPLES_PER_FOLD] + Y[(i+1)*SAMPLES_PER_FOLD:]
+
+    print("Length of X_train == ",len(X_train),"Length of Y_train == ",len(Y_train))
+
+    grad_check_vocab_size = 4
+    np.random.seed(42)
+    model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
+
+    ############# Load the model here and check the inference
+    print("Inference from loaded model ==>")
+    with open (f'history/model_fold_{i}.pkl', 'rb' ) as f:
+        model_loaded = pickle.load(f)
+    dump_i = "test_"+str(i)
+    inference_test_msd(model_loaded, array_X_test, Y_test_full, save_dump=True, fold_number=dump_i)
 
 # print("history == ",history)
 

@@ -583,7 +583,23 @@ for i in range(FOLD):
 
 # print("history == ",history)
 
+for i in range(FOLD):
+    print("------------------------------- FOLD NUMBER = ",i+1)
+    print("0 : ",i*SAMPLES_PER_FOLD," add with ",(i+1)*SAMPLES_PER_FOLD," : ",len(array_X))
+    X_train = array_X[:i*SAMPLES_PER_FOLD] + array_X[(i+1)*SAMPLES_PER_FOLD:]
+    Y_train = Y[:i*SAMPLES_PER_FOLD] + Y[(i+1)*SAMPLES_PER_FOLD:]
 
+    print("Length of X_train == ",len(X_train),"Length of Y_train == ",len(Y_train))
+    grad_check_vocab_size = 4
+    np.random.seed(42)
+    model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 10)
+
+    ############# Load the model here and check the inference
+    print("Inference from loaded model ==>")
+    with open (f'history/model_fold_{i}.pkl', 'rb' ) as f:
+        model_loaded = pickle.load(f)
+    dump_i = "test_"+str(i)
+    inference_test_msd(model_loaded, array_X_test, Y_test_full, save_dump=True, fold_number=dump_i)
 
 
 #### Now check the accuracy, precision, recall, f1-score for the whole dataset
