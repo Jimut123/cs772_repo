@@ -474,9 +474,9 @@ def train_with_sgd(model, X_train, y_train, X_test, y_test, learning_rate = 0.00
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             print("%s: loss after num_examples_seen=%d epoch=%d: %f" %(time, num_examples_seen, epoch, loss))
             # adjust the learning rate if loss increases
-            if (len(losses) > 1 and losses[-1][1] > losses[-2][1]):
-                learning_rate = learning_rate * 0.5
-                print("setting learning rate to %f" %(learning_rate))
+            # if (len(losses) > 1 and losses[-1][1] > losses[-2][1]):
+            #     learning_rate = learning_rate * 0.5
+            #     print("setting learning rate to %f" %(learning_rate))
             sys.stdout.flush()
         # for each training example...
         for i in range(len(y_train)):
