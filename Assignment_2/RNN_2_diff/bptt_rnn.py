@@ -253,7 +253,7 @@ class RNNNumpy():
 ## 1. forward propagation
 
 def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+    return 1 / (1 + np.logaddexp(-x))
 
 def forward_propagation(self, x):
     # total num of time steps, len of vector x

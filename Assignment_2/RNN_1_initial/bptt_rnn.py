@@ -15,7 +15,7 @@ import operator
 import numpy as np
 from datetime import datetime
 from sklearn.metrics import accuracy_score
-np.random.seed(42)
+np.random.seed(5)
 
 ############################################
 ############################################
@@ -23,12 +23,12 @@ np.random.seed(42)
 
 
 
-FOLDER_NAME = "history"
+FOLDER_NAME = "history_mine"
 
 try:
-    rem = input("Do you want to remove the history folder (y/n) : ")
+    rem = input("Do you want to remove the history_mine folder (y/n) : ")
     if rem == 'y':
-        shutil.rmtree('history')
+        shutil.rmtree('history_mine')
 except OSError as e:
     print ("Error: %s - %s." % (e.filename, e.strerror))
 
@@ -128,7 +128,7 @@ def append_zero_to_sublists(input_list):
 ################### Extract the Y values for the Training set
 # Example usage:
 # json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  # Replace with your JSON file path
-json_file_path = '../train.jsonl'  # Replace with your JSON file path
+json_file_path = './train.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -141,7 +141,7 @@ Y=values
 
 ##### Do the same for the test dataset
 # json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
-json_file_path = '../test.jsonl'  # Replace with your JSON file path
+json_file_path = './test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'chunk_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -159,7 +159,7 @@ Y_test_full=values
 
 # Example usage:
 # json_file_path =  r'C:\Users\pande\cs772_repo\Assignment_2\train.jsonl'  #'train.jsonl'  Replace with your JSON file path
-json_file_path =  '../train.jsonl'  #'train.jsonl'  Replace with your JSON file path
+json_file_path =  './train.jsonl'  #'train.jsonl'  Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -196,7 +196,7 @@ array_X = [np.array(sublist) for sublist in encoded_list]
 
 # Example usage:
 # json_file_path = r'C:\Users\pande\cs772_repo\Assignment_2\test.jsonl'  # Replace with your JSON file path
-json_file_path = '../test.jsonl'  # Replace with your JSON file path
+json_file_path = './test.jsonl'  # Replace with your JSON file path
 key_to_extract = 'pos_tags'  # Replace with the key you want to extract
 
 values = list(extract_key_values(json_file_path, key_to_extract))
@@ -231,16 +231,16 @@ class RNNNumpy():
         self.bptt_truncate = bptt_truncate
 
         # random initiate the parameters - Original version
-        self.I = np.random.uniform(-np.sqrt(1./word_dim), np.sqrt(1./word_dim), (hidden_dim, word_dim)) #WEIGHT FROM CURRENT INPUT TO HIDDEN
-        self.H = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim, hidden_dim)) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
-        self.S = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim,word_dim+1)) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
-        self.bias = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim),(1,1))
+        #self.I = np.random.uniform(-np.sqrt(1./word_dim), np.sqrt(1./word_dim), (hidden_dim, word_dim)) #WEIGHT FROM CURRENT INPUT TO HIDDEN
+        #self.H = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim, hidden_dim)) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
+        #self.S = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim), (hidden_dim,word_dim+1)) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
+        #self.bias = np.random.uniform(-np.sqrt(1./hidden_dim), np.sqrt(1./hidden_dim),(1,1))
 
         # random initiate the parameters - version - 2
-        # self.I = np.random.uniform(-1, 1, (hidden_dim, word_dim)) #WEIGHT FROM CURRENT INPUT TO HIDDEN
-        # self.H = np.random.uniform(-1, 1, (hidden_dim, hidden_dim)) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
-        # self.S = np.random.uniform(-1, 1, (hidden_dim,word_dim+1)) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
-        # self.bias = np.random.uniform(-1, 1,(1,1))
+        self.I = np.random.uniform(-1, 1, (hidden_dim, word_dim)) #WEIGHT FROM CURRENT INPUT TO HIDDEN
+        self.H = np.random.uniform(-1, 1, (hidden_dim, hidden_dim)) #WEIGHT FROM PREVIOUS STATE TO NEXT STATE
+        self.S = np.random.uniform(-1, 1, (hidden_dim,word_dim+1)) #WEIGHT FROM PREVIOUS INPUT TO CURRENT HIDDEN
+        self.bias = np.random.uniform(-1, 1,(1,1))
 
         # bad performing 
         # self.I = np.random.randn(hidden_dim, word_dim) #WEIGHT FROM CURRENT INPUT TO HIDDEN
@@ -253,7 +253,7 @@ class RNNNumpy():
 ## 1. forward propagation
 
 def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+      return np.exp(-np.logaddexp(0, -x))
 
 def forward_propagation(self, x):
     # total num of time steps, len of vector x
@@ -265,17 +265,17 @@ def forward_propagation(self, x):
     s[-1] = np.zeros(self.hidden_dim)
     x[-1] = np.zeros(self.word_dim+1)
     # output at each time step saved as o, save them for later use
-    o = np.zeros((T-1, 1))
-    for t in range(1,T):
+    o = np.zeros((T, 1))
+    for t in range(0,T):
         # we are indexing U by x[t]. it is the same as multiplying U with a one-hot vector
 
         # s[t] = np.tanh(self.I.dot(x[t][1:]) + self.H.dot(s[t-1])+self.S.dot(x[t-1])+self.bias)
-
         s[t] = np.tanh(self.I.dot(x[t][1:]) + self.H.dot(s[t-1])+self.S.dot(x[t-1])+self.bias)
 
-        o[t-1] = sigmoid(s[t])
+        o[t] = sigmoid(s[t])
     o = list(itertools.chain(*o))
     s = list(itertools.chain(*s))
+    o=o[1:]
     return [o, s]
 
 RNNNumpy.forward_propagation = forward_propagation
@@ -319,7 +319,7 @@ def calculate_total_loss(self, x, y):
         # we only care about our prediction of the "correct" words
         #correct_word_predictions = o[np.arange(len(y[i])), y[i]]
         # add to the loss based on how off we were
-        L =  L-1 * np.sum(y[i]*np.log(o+1e-6))
+        L =  L+(-1 * np.sum(y[i]*np.log(o+1e-6)))
     return L
 
 def calculate_loss(self, x, y):
@@ -360,20 +360,21 @@ def bptt(self, x, y):
     dLdb = np.sum(o-y)
     #delta_o[np.arange(len(y)), y] -= 1   # it is y_hat - y
     # for each output backwards ...
-    for t in range(1,T):
-        dLdS += np.outer(delta_o[t], s[t].T)    # at time step t, shape is word_dim * hidden_dim
+    for t in range(0,T):
+        delta_t = delta_o[t]    # at time step t, shape is word_dim * hidden_dim
         # initial delta calculation
-        delta_t = self.S.T.dot(delta_o[t]) * (1 - (s[t] ** 2))
+        #delta_t = self.S.T.dot(delta_o[t]) #* (1 - (s[t] ** 2))
         # backpropagation through time (for at most self.bptt_truncate steps)
         # given time step t, go back from time step t, to t-1, t-2, ...
         for bptt_step in np.arange(max(0, t-self.bptt_truncate), t+1)[::-1]:
             # print("Backprogation step t=%d bptt step=%d" %(t, bptt_step))
             #print((dLdI[:, x[bptt_step]]+delta_t.T).shape)
             #print(delta_t.T.shape)
-            dLdH = dLdH + np.outer(delta_t, s[bptt_step - 1])
-            dLdI[:, x[bptt_step]] = dLdI[:, x[bptt_step]] + delta_t.T
+            dLdH = dLdH + delta_t*s[bptt_step - 1]
+            dLdI[:, x[bptt_step]] = dLdI[:, x[bptt_step]] + delta_t
             # update delta for next step
-            delta_t = delta_t.dot(self.H) * (1 - s[bptt_step-1]**2)
+            delta_t = delta_t*self.H * (1 - s[bptt_step-1]**2)
+            dLdS[:, x[bptt_step-1]] = dLdS[:, x[bptt_step-1]] + delta_t
     return [dLdI, dLdS, dLdH,dLdb]
 
 RNNNumpy.bptt = bptt
@@ -439,6 +440,7 @@ two step:
 ### 4.1. perform one step of SGD
 def numpy_sgd_step(self, x, y, learning_rate):
     dLdI, dLdS, dLdH,dLbias = self.bptt(x, y)
+
     self.I -= learning_rate * dLdI
     self.S -= learning_rate * dLdS
     self.H -= learning_rate * dLdH[0][0]
@@ -468,6 +470,7 @@ def train_with_sgd(model, X_train, y_train, X_test, y_test, learning_rate = 0.00
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             print("%s: loss after num_examples_seen=%d epoch=%d: %f" %(time, num_examples_seen, epoch, loss))
             # adjust the learning rate if loss increases
+            
             if (len(losses) > 1 and losses[-1][1] > losses[-2][1]):
                 learning_rate = learning_rate * 0.5
                 print("setting learning rate to %f" %(learning_rate))
@@ -510,7 +513,7 @@ def inference_test(model, X_test, y_test, save_dump = False, fold_number = 0):
     print("Mean F1 == ",F1)
 
     if save_dump:
-        with open(f'history/test_metrics_fold_{fold_number}.txt', 'a') as file:
+        with open(f'history_mine/test_metrics_fold_{fold_number}.txt', 'a') as file:
             file.write(f'Accuracy: {ACCURACY} \n Precision: {PRECISION} \n Recall: {RECALL} \n F1: {F1}\n')
 
 
@@ -529,7 +532,7 @@ print("Total number of testing samples in Y_test == ",len(Y_test_full))
 print("array_X == ",array_X[1])
 
 
-
+'''
 FOLD = 5
 SAMPLES_PER_FOLD = len(array_X)//FOLD
 
@@ -559,18 +562,18 @@ for i in range(FOLD):
 
     model, history = train_with_sgd(model, X_train, Y_train, X_test, Y_test, learning_rate = 0.01, nepoch = 100, evaluate_loss_after = 1)
 
-    file_name = f'history/model_fold_{i}.pkl'
+    file_name = f'history_mine/model_fold_{i}.pkl'
 
     with open(file_name, 'wb') as file:
         pickle.dump(model, file)
         print(f'Weights successfully saved to "{file_name}"')
 
-    with open("history/test_logs_fold_{}.txt".format(i), "a") as text_file:
+    with open("history_mine/test_logs_fold_{}.txt".format(i), "a") as text_file:
         text_file.write("{} \n".format(history))
 
     ############# Load the model here and check the inference
     print("Inference from loaded model ==>")
-    with open (f'history/model_fold_{i}.pkl', 'rb' ) as f:
+    with open (f'history_mine/model_fold_{i}.pkl', 'rb' ) as f:
         model_loaded = pickle.load(f)
     inference_test(model_loaded, X_test, Y_test, save_dump=True, fold_number=i)
 
@@ -578,15 +581,15 @@ for i in range(FOLD):
 # print("history == ",history)
 
 
-
+'''
 
 #### Now check the accuracy, precision, recall, f1-score for the whole dataset
-np.random.seed(42)
+np.random.seed(80)
 grad_check_vocab_size = 4
-model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 4)
-model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 0.01, nepoch = 100, evaluate_loss_after = 1)
+model = RNNNumpy(grad_check_vocab_size, 1, bptt_truncate = 6)
+model, history = train_with_sgd(model, array_X, Y, array_X_test, Y_test_full, learning_rate = 1e-5, nepoch = 10, evaluate_loss_after = 1)
 
-file_name = f'history/model_final.pkl'
+file_name = f'history_mine/model_final.pkl'
 
 with open(file_name, 'wb') as file:
     pickle.dump(model, file)
@@ -595,7 +598,7 @@ with open(file_name, 'wb') as file:
 ############# Load the model here and check the inference
 print("Inference from loaded model ==>")
 
-with open (f'history/model_final.pkl', 'rb' ) as f:
+with open (f'history_mine/model_final.pkl', 'rb' ) as f:
     model_final = pickle.load(f)
 
 inference_test(model_final, array_X_test, Y_test_full, save_dump=True, fold_number='final')
