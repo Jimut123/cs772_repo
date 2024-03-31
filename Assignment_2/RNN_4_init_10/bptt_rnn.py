@@ -598,6 +598,9 @@ with open(file_name, 'wb') as file:
     pickle.dump(model, file)
     print(f'Weights successfully saved to "{file_name}"')
 
+with open("history/test_logs_final.txt".format(i), "a") as text_file:
+    text_file.write("{} \n".format(history))
+
 ############# Load the model here and check the inference
 print("Inference from loaded model ==>")
 
