@@ -476,17 +476,17 @@ def train_with_sgd(model, X_train, y_train, X_test, y_test, learning_rate = 0.00
             model.sgd_step(X_train[i], y_train[i], learning_rate)
             num_examples_seen += 1
         # make the inference here
-        inference_test_msd(model, X_test, y_test)
+        # inference_test_msd(model, X_test, y_test)
     # to return the 2nd index of the losses list
     return model, [tup[1] for tup in losses]
 
 
-def inference_test_msd(model, X_test, y_test, save_dump = False, fold_number = 0):
-    for i, y_true in zip(np.arange(len(y_test)), y_test):
-        print("X_test == ",X_test[i])
-        print("X_test shape == ",X_test[i].shape)
-        pred = model.predict(X_test[i])
-        break
+# def inference_test_msd(model, X_test, y_test, save_dump = False, fold_number = 0):
+#     for i, y_true in zip(np.arange(len(y_test)), y_test):
+#         print("X_test == ",X_test[i])
+#         print("X_test shape == ",X_test[i].shape)
+#         pred = model.predict(X_test[i])
+#         break
 
 
 
@@ -503,48 +503,11 @@ def inference_test_error_analysis(model, X_instance, Y_instance):
 
     pred = model.predict(X_instance)
 
-    print("True value = ",Y_instance)
+    # print("True value = ",Y_instance)
     # print("True value shape = ",Y_instance.shape)
-    print("Predicted value = ",pred)
-
-
-    # ACC_LIST = []
-    # PREC_LIST = []
-    # REC_LIST = []
-    # F1_LIST = []
-    # for i, y_true in zip(np.arange(len(y_test)), y_test):
-    #     # print("X_test == ",X_test[i])
-    #     pred = model.predict(X_test[i])
-    #     # print("prediction == ",pred," True == ",y_true)
-    #     accuracy = accuracy_score(y_true, pred)
-    #     prec = precision(y_true, pred)
-    #     rec = recall(y_true, pred)
-    #     f1 = f1_score(prec, rec)
-    #     ACC_LIST.append(accuracy)
-    #     PREC_LIST.append(prec)
-    #     REC_LIST.append(rec)
-    #     F1_LIST.append(f1)
-    # mean_acc = statistics.mean(ACC_LIST)*100
-    # std_dev_acc = statistics.stdev(ACC_LIST)*100
-
-    # mean_prec = statistics.mean(PREC_LIST)*100
-    # std_dev_prec = statistics.stdev(PREC_LIST)*100
-
-    # mean_rec = statistics.mean(REC_LIST)*100
-    # std_dev_rec = statistics.stdev(REC_LIST)*100
-
-    # mean_f1 = statistics.mean(F1_LIST)
-    # std_dev_f1 = statistics.stdev(F1_LIST)
-
-    # print("Accuracy Mean (sd) {:.2f} {:.2f} ".format(mean_acc,std_dev_acc))
-    # print("Precision Mean (sd) {:.2f} {:.2f} ".format(mean_prec,std_dev_prec))
-    # print("Recall Mean (sd) {:.2f} {:.2f}".format(mean_rec,std_dev_rec))
-    # print("F1 Mean (sd) {:.2f} {:.2f}".format(mean_f1,std_dev_f1))
-
-    # if save_dump:
-    #     with open(f'history/test_metrics_fold_{fold_number}.txt', 'a') as file:
-    #         file.write(f'Accuracy: {mean_acc:.2f} {std_dev_acc:.2f} \n  Precision: {mean_prec:.2f} {std_dev_prec:.2f} \n Recall: {mean_rec:.2f} {std_dev_rec:.2f} \n F1: {mean_f1:.2f} {std_dev_f1:.2f} \n')
-
+    # print("Predicted value = ",pred)
+    accuracy = accuracy_score(pred, Y_instance)
+    return accuracy, pred
 
 
 
@@ -560,11 +523,13 @@ print("Inference from loaded model ==>")
 with open (f'history/model_final.pkl', 'rb' ) as f:
     model_final = pickle.load(f)
 
-inference_test_msd(model_final, array_X_test, Y_test_full, save_dump=True, fold_number='final')
+# inference_test_msd(model_final, array_X_test, Y_test_full, save_dump=True, fold_number='final')
 
 
 
 import json
+
+count = 0
 
 # Open the JSON file
 with open('../test.jsonl', 'r') as file:
@@ -579,18 +544,30 @@ with open('../test.jsonl', 'r') as file:
         pos_tags = data['pos_tags']
         
         # Print or process the data as needed
-        print("Tokens:", tokens)
-        print("Chunk Tags:", chunk_tags)
-        print("POS Tags:", pos_tags)
+        pos_tags = [0]+pos_tags
+        # print("POS Tags updated :", pos_tags)
 
         X_instance = input_to_5bit_encoder([pos_tags])
         X_instance = np.array(X_instance[0])
-        print("X_instance == ",X_instance)
+        # print("X_instance == ",X_instance)
         Y_instance = [chunk_tags]
-        inference_test_error_analysis(model, X_instance, Y_instance[0])
+        accurate, pred = inference_test_error_analysis(model, X_instance, Y_instance[0])
+        
+        # if accurate > 0.40 and accurate < 0.60:
+        if accurate < 0.40:
+            print("Accuracy:", accurate)
+            print("Tokens:", tokens)
+            print("POS Tags:", pos_tags)
+            print("Chunk Tags:", chunk_tags)
+            print("Predicted Chunk Tags:", pred)
+            # break
+
+        count += 1
 
 
-        break
+        # if count >=10:
+        #     break
+
 
 
 
