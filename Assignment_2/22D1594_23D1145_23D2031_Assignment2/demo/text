@@ -1,0 +1,17 @@
+the boys are playing
+dt,nn,ot,ot
+
+Japan began the defence of their Asian Cup title with a lucky 2-1 win against Syria in a Group C championship match on Friday .
+nn,ot,dt,nn,ot,ot,jj,nn,nn,ot,dt,jj,ot,ot,ot,nn,ot,dt,nn,nn,nn,nn,ot,nn,ot
+
+,"chunk_tags":[1,1,1,0,1,1,0,0,0,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1],"pos_tags":
+[1,4,2,1,4,4,3,1,1,4,2,3,4,4,4,1,4,2,1,1,1,1,4,1,4]
+
+
+
+
+
+'nn' : 1,
+'dt' : 2, 
+'jj' : 3,
+'ot' : 4
