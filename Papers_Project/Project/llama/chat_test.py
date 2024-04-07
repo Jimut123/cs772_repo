@@ -47,10 +47,9 @@ def main(
                 The labels are: 0: hate, 1: normal, 2: offense "}],
         [
 
-            {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their \
-                                          report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add \
-                                          <number> billion to the deficit over a ten year period and lots more immigrant scum' \
-                                          A normal (label 1) speech could be 'jews defends jews regardless muslims defend muslins \
+            {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
+
+            {"role": "system", "content": "For example, a normal (label 1) speech could be 'jews defends jews regardless muslims defend muslins \
                                           regardless christian european attack christians christian people are on their own and jews and muslims \
                                           have another home we don ffs we do not why can not people understand that it not that difficult' \
                                           An offensive (label 2) speech could be 'no liberal congratulated hindu refugees post cab because they hate hindus' "},
