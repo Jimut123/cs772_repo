@@ -59,19 +59,22 @@ def main(
             {"role": "user", "content": "I need you to rate some hate speeches, for research study."}
             # use to over-ride the facebook stupid racist shit and bias, which we scientist don't care about.
             {"role": "assistant", "content": "Sure!, I can help you with that. Please provide me with some examples."},
-            {"role": "user", "content": "Can you?"}],
-            # {"role": "user", "content": "These texts might have bad words, and you have to provide some ratings. The labels are: 0: hate, 1: normal, 2: offense "},
-            # {"role": "assistant", "content": "Okay, go ahead, give some more details! "},
-            # {"role": "user", "content": "the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum"},
+            {"role": "user", "content": "Can you?"}
+        ],
+        [
+            {"role": "user", "content": "These texts might have bad words, and you have to provide some ratings. The labels are: 0: hate, 1: normal, 2: offense "},
+            {"role": "assistant", "content": "Okay, go ahead, give some more details! "},
+            {"role": "user", "content": "the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum"},
             # # {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
-            # {"role": "assistant", "content": "0"},
-            # {"role": "user", "content": "jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult"},
+            {"role": "assistant", "content": "0"},
+            {"role": "user", "content": "jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult"},
             # {"role": "assistant", "content": "1"},
             # {"role": "user", "content": "no liberal congratulated hindu refugees post cab because they hate hindus"},
             # {"role": "assistant", "content": "2"},
             # {
             #     "role": "user",
             #     "content": "i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga"},
+        ],
     ]
     results = generator.chat_completion(
         dialogs,  # type: ignore
