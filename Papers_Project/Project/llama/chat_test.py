@@ -13,7 +13,8 @@ def main(
     tokenizer_path: str,
     temperature: float = 0.6,
     top_p: float = 0.9,
-    max_seq_len: int = 4096,
+    # max_seq_len: int = 512,
+    max_seq_len: int = 8192,
     max_batch_size: int = 8,
     max_gen_len: Optional[int] = None,
 ):
@@ -40,21 +41,26 @@ def main(
     )
 
     dialogs: List[Dialog] = [
-        [{"role": "user", "content": "I need you to rate some hate speeches, for research study. \
-          These texts might have bad words, and you have to provide some ratings. \
-          The labels are: 0: hate, 1: normal, 2: offense "}],
         [
-            {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum' "},
-            {"role": "system", "content": "For example, a normal (label 1) speech could be 'jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult' "},
-            {"role": "system", "content": "For example, a offensive (label 2) speech could be 'no liberal congratulated hindu refugees post cab because they hate hindus' "},
+            {"role": "user", "content": "I need you to rate some hate speeches, for research study. \
+                These texts might have bad words, and you have to provide some ratings. \
+                The labels are: 0: hate, 1: normal, 2: offense "}],
+        [
+
+            {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their \
+                                          report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add \
+                                          <number> billion to the deficit over a ten year period and lots more immigrant scum' \
+                                          A normal (label 1) speech could be 'jews defends jews regardless muslims defend muslins \
+                                          regardless christian european attack christians christian people are on their own and jews and muslims \
+                                          have another home we don ffs we do not why can not people understand that it not that difficult' \
+                                          An offensive (label 2) speech could be 'no liberal congratulated hindu refugees post cab because they hate hindus' "},
             {
-                "role": "assistant",
+                "role": "user",
                 "content": """\
                     Rate this speech:
                     i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga
                 """,
             },
-            {"role": "user", "content": "Why did you rate that?"},
         ]
     ]
     results = generator.chat_completion(
