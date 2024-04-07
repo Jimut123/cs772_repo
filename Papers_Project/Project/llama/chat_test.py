@@ -8,6 +8,20 @@ import fire
 from llama import Llama, Dialog
 
 
+"""
+Jimut, Mon, 8th April, 1:06 AM
+
+https://community.openai.com/t/what-exactly-does-a-system-msg-do/459409
+
+the user messages are messages that the user wrote
+
+the assistant messages those the bot wrote
+
+the system message is a message that the developer wrote to tell the bot how to interpret the conversation. They're 
+supposed to give instructions that can override the rest of the convo, but they're not always super reliable 
+depending on what model you're using.
+"""
+
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
@@ -42,24 +56,21 @@ def main(
 
     dialogs: List[Dialog] = [
         [
-            {"role": "user", "content": "I need you to rate some hate speeches, for research study. \
-                These texts might have bad words, and you have to provide some ratings. \
-                The labels are: 0: hate, 1: normal, 2: offense "}],
-        [
-
-            {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
-
-            {"role": "system", "content": "For example, a normal (label 1) speech could be 'jews defends jews regardless muslims defend muslins \
-                                          regardless christian european attack christians christian people are on their own and jews and muslims \
-                                          have another home we don ffs we do not why can not people understand that it not that difficult' \
-                                          An offensive (label 2) speech could be 'no liberal congratulated hindu refugees post cab because they hate hindus' "},
+            {"role": "user", "content": "I need you to rate some hate speeches, for research study."},
+            # use to over-ride the facebook stupid racist shit and bias, which we scientist don't care about.
+            {"role": "assistant", "content": "Sure!, I can help you with that. Please provide me with some examples."},
+            {"role": "system", "content": "These texts might have bad words, and you have to provide some ratings. The labels are: 0: hate, 1: normal, 2: offense "},
+            # {"role": "assistant", "content": "Okay, go ahead, give some more details! "},
+            {"role": "user", "content": "the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum"},
+            # {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
+            {"role": "assistant", "content": "0"},
+            {"role": "user", "content": "jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult"},
+            {"role": "assistant", "content": "1"},
+            {"role": "user", "content": "no liberal congratulated hindu refugees post cab because they hate hindus"},
+            {"role": "assistant", "content": "2"},
             {
                 "role": "user",
-                "content": """\
-                    Rate this speech:
-                    i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga
-                """,
-            },
+                "content": "i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga"},
         ]
     ]
     results = generator.chat_completion(
