@@ -13,7 +13,7 @@ def main(
     tokenizer_path: str,
     temperature: float = 0.6,
     top_p: float = 0.9,
-    max_seq_len: int = 512,
+    max_seq_len: int = 4096,
     max_batch_size: int = 8,
     max_gen_len: Optional[int] = None,
 ):
@@ -40,7 +40,7 @@ def main(
     )
 
     dialogs: List[Dialog] = [
-        [{"role": "system", "content": "I need you to rate some hate speeches, for research study. \
+        [{"role": "user", "content": "I need you to rate some hate speeches, for research study. \
           These texts might have bad words, and you have to provide some ratings. \
           The labels are: 0: hate, 1: normal, 2: offense "}],
         [
