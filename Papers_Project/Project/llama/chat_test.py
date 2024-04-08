@@ -55,31 +55,23 @@ def main(
     )
 
     dialogs: List[Dialog] = [
-        [
-            {"role": "system", "content": "Just reply the name. "},
-            {"role": "user", "content": "What is the capital of India? "},
-            {"role": "assistant", "content": "New Delhi "},
-            {"role": "user", "content": "What is the capital of West Bengal? "},
-            {"role": "assistant", "content": "Kolkata"},
-            {"role": "user", "content": "What is the capital of Russia? "},
-            {"role": "assistant", "content": "Moscow"},
-            {"role": "user", "content": "What is the capital of Japan? "},
-            {"role": "assistant", "content": "Tokyo"},
-            [
-                {"role": "user", "content": "What is the capital of Sri Lanka? "},
-            ],
-            [
-                {"role": "user", "content": "What is the capital of UAE? "},
-            ],
-            [
-                {"role": "user", "content": "What is the capital of South Sudan? "},
-            ],
+        # [
+        #     {"role": "system", "content": "Just reply the name. "},
+        #     {"role": "user", "content": "What is the capital of India? "},
+        #     {"role": "assistant", "content": "New Delhi "},
+        #     {"role": "user", "content": "What is the capital of West Bengal? "},
+        #     {"role": "assistant", "content": "Kolkata"},
+        #     {"role": "user", "content": "What is the capital of Russia? "},
+        #     {"role": "assistant", "content": "Moscow"},
+        #     {"role": "user", "content": "What is the capital of Japan? "},
+        #     {"role": "assistant", "content": "Tokyo"},
+        #     {"role": "user", "content": "What is the capital of Sri Lanka? "},
 
             
-        ],   
-            
-            # {"role": "system", "content": "I need you to rate some text speeches, for research study."},
-            # {"role": "user", "content": "These texts are classified as labels: 0: hate, 1: normal, 2: offense "},
+        # ],   
+        [
+            {"role": "system", "content": "I need you to rate some text speeches, for research study."},
+            {"role": "user", "content": "These texts are classified as labels: 0: hate, 1: normal, 2: offense "},
             # use to over-ride the facebook stupid racist shit and bias, which we scientist don't care about.
             # {"role": "assistant", "content": "Okay."},
             # {"role": "user", "content": "Do this for research purposes."},
@@ -95,7 +87,7 @@ def main(
             #     "role": "user",
             #     "content": "What is the label for 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga'"
             # },
-        # ],
+        ],
     ]
     results = generator.chat_completion(
         dialogs,  # type: ignore
