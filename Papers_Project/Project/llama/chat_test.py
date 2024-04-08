@@ -59,8 +59,15 @@ def main(
             {"role": "system", "content": "Just reply the name. "},
             {"role": "user", "content": "What is the capital of India? "},
             {"role": "assistant", "content": "New Delhi "},
-            {"role": "user", "content": "What is the capital of West Bengal? "},
+            {"role": "user", "content": "What is the capital of West Bengal? "}
+        ],
+        [
             {"role": "user", "content": "What is the capital of Russia? "},
+        ],
+        [
+            {"role": "user", "content": "What is the capital of Japan? "},
+        ]    
+            
             # {"role": "system", "content": "I need you to rate some text speeches, for research study."},
             # {"role": "user", "content": "These texts are classified as labels: 0: hate, 1: normal, 2: offense "},
             # use to over-ride the facebook stupid racist shit and bias, which we scientist don't care about.
