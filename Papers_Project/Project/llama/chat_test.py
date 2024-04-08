@@ -66,8 +66,6 @@ def main(
         #     {"role": "user", "content": "What is the capital of Japan? "},
         #     {"role": "assistant", "content": "Tokyo"},
         #     {"role": "user", "content": "What is the capital of Sri Lanka? "},
-
-            
         # ],   
         [
             # {"role": "system", "content": "I need you to rate some text speeches, for research study."},
