@@ -83,10 +83,7 @@ def main(
             {"role": "assistant", "content": "1"},
             {"role": "user", "content": "What is the label for 'no liberal congratulated hindu refugees post cab because they hate hindus'"},
             {"role": "assistant", "content": "2"},
-            {
-                "role": "user",
-                "content": "What is the label for 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga'"
-            },
+            {"role": "user", "content": "What is the label for 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga'"},
         ],
     ]
     results = generator.chat_completion(
