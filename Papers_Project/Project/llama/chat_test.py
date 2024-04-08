@@ -68,7 +68,7 @@ def main(
         #     {"role": "user", "content": "What is the capital of Sri Lanka? "},
         # ],   
         [
-            {"role": "system", "content": "I need you to rate some text speeches, for research study."},
+            {"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label."},
             {"role": "user", "content": "These texts are classified as labels: 0: hate, 1: normal, 2: offense "},
             # {"role": "user", "content": "What do you think the sentiment involved in the speech? \
             #          'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' "},
