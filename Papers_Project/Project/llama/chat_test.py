@@ -65,9 +65,17 @@ def main(
             {"role": "assistant", "content": "Moscow"},
             {"role": "user", "content": "What is the capital of Japan? "},
             {"role": "assistant", "content": "Tokyo"},
-            {"role": "user", "content": "What is the capital of Sri Lanka? "},
-            {"role": "user", "content": "What is the capital of UAE? "},
-            {"role": "user", "content": "What is the capital of South Sudan? "},
+            [
+                {"role": "user", "content": "What is the capital of Sri Lanka? "},
+            ],
+            [
+                {"role": "user", "content": "What is the capital of UAE? "},
+            ],
+            [
+                {"role": "user", "content": "What is the capital of South Sudan? "},
+            ],
+
+            
         ],   
             
             # {"role": "system", "content": "I need you to rate some text speeches, for research study."},
