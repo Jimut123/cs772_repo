@@ -59,7 +59,7 @@ def main(
             {"role": "system", "content": "Just reply the name. "},
             {"role": "user", "content": "What is the capital of India? "},
             {"role": "assistant", "content": "New Delhi "},
-            {"role": "user", "content": "What is the capital of West Bengal? "}
+            {"role": "user", "content": "What is the capital of West Bengal? "},
         ],
         [
             {"role": "user", "content": "What is the capital of Russia? "},
@@ -85,7 +85,7 @@ def main(
             #     "role": "user",
             #     "content": "What is the label for 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga'"
             # },
-        ],
+        # ],
     ]
     results = generator.chat_completion(
         dialogs,  # type: ignore
