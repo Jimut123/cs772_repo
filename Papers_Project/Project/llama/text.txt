@@ -1,22 +1,34 @@
-Label ==  2
-Text ==  u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry
-Label ==  2
-Text ==  the uk has threatened to return radioactive waste to the eu if an agreement cannot be reached can not we keep the radioactive waste and send back all the paki migrants instead
-Label ==  2
-Text ==  if english is not imposition then hindi is also not imposition shut up chutiya retards stophindiimposition
-Label ==  2
-Text ==  no liberal congratulated hindu refugees post cab because they hate hindus
-Label ==  2
-Text ==  he said bro even your texts sound redneck whatever the fuck that means 😂 🤷 🏻 ‍ ♂️ <user>
-Label ==  1
-Text ==  i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga
-Label ==  0
-Text ==  in britain the prime minister a childless woman london mayor a moslem invader in command of london police a lesbian in command of london fire brigade a fat woman scotland first minister a childless woman
-Label ==  1
-Text ==  <user> <user> there shd be a film called no hindus in kashmir wud be perfect islamic fanaticsm movement in kashmir
-Label ==  1
-Text ==  jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult
-Label ==  0
-Text ==  the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum
-
-1
+Samples from the training dataset:: 
+Label = 0, Hate
+Label ==  0: Text ==  in britain the prime minister a childless woman london mayor a moslem invader in command of london police a lesbian in command of london fire brigade a fat woman scotland first minister a childless woman
+Label ==  0: Text ==  the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum
+Label ==  0: Text ==  <user> <number> americans dead because of an illegal immigrant this is infuriating enforce our laws deport them
+Label ==  0: Text ==  thank a white man you live in his world and why do you islanders say you are canadian so rude really if i lived in a brown country even with citizenship i would never call myself ethiopian chinese indian you are a caribbean living in canada
+Label ==  0: Text ==  nigger faggot retard beaner dishwasher time to see if i get ban
+Label ==  0: Text ==  that a retarded non argument the bible is also a best seller in communist china
+Label ==  0: Text ==  every time a nigger in africa gets pregnant abort it make it a law you can about up to <number> years
+Label ==  0: Text ==  nothing royal about this wedding he is a bastard and she is a nignog halfbreed thot and a divorced catholic to boot it is notable that both the father of the bride and the father of the groom did not attend
+Label ==  0: Text ==  what sort of white man or woman would vote for this nigger
+Label ==  0: Text ==  diversity is a code word for white genocide immigrants contribute and integrate 3 rd world retards freeload and fornicate
+Label = 1, Normal
+Label ==  1: Text ==  i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga
+Label ==  1: Text ==  <user> <user> there shd be a film called no hindus in kashmir wud be perfect islamic fanaticsm movement in kashmir
+Label ==  1: Text ==  jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult
+Label ==  1: Text ==  got a couple more companies you can boycott this christmas season first one is ford they have got several <number> ads out featuring blip length shots of white men w other than white women this is becoming the norm too you defile the white man that will drive our women into their hands wn
+Label ==  1: Text ==  people are going to blame the white nationalists for what happened but they were initially peaceful before antifa showed up what happened yesterday is the result of political correctness and the left legitimising political violence that why the establishment leftists do not condemn antifa <number> <number>
+Label ==  1: Text ==  you are completely correct without it communication breaks down leading to distortions misrepresentations this is a very serious problem among white males who failed to learn the language effectively
+Label ==  1: Text ==  caucasians wearing masks to prevent coronavirus and still don ’ t wash their hands
+Label ==  1: Text ==  <user> besudes guilt saviour complex among whites has reached such an alarming level that they want to save indian girls from being raped when the rate of sexual assault in their own countries is significantly higher
+Label ==  1: Text ==  your idea of compassion is allowing kate steinle killer go free that not compassion it a mental illness let be compassionate to the legal citizens of this country stop funding illegal immigrants stop encouraging lawlessness and build that fucking wall maga gabfam news
+Label ==  1: Text ==  why don ’ t white boys with curly hair comb it looks like a bird ’ nest
+Label = 2, Offense
+Label ==  2: Text ==  u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry
+Label ==  2: Text ==  the uk has threatened to return radioactive waste to the eu if an agreement cannot be reached can not we keep the radioactive waste and send back all the paki migrants instead
+Label ==  2: Text ==  if english is not imposition then hindi is also not imposition shut up chutiya retards stophindiimposition
+Label ==  2: Text ==  no liberal congratulated hindu refugees post cab because they hate hindus
+Label ==  2: Text ==  he said bro even your texts sound redneck whatever the fuck that means 😂 🤷 🏻 ‍ ♂️ <user>
+Label ==  2: Text ==  hindu army ’ disrespecting islam now 🙄 acting like your countries don ’ t mass murder them on a bi yearly basis stfu
+Label ==  2: Text ==  they used to have cracker and honky now they have antiracist them to us racist us and nazi does this mean i can say nigger faggot kike sandnigger and spic again fuck you anti white scum 😬
+Label ==  2: Text ==  i am sure you are totally the alpha faggot at the standard fuckparties
+Label ==  2: Text ==  <user> aint he bisexual an lgbt king of gays even his mind
+Label ==  2: Text ==  you insecure lowlife broke ass desperate woman beating momma boy ass niggas are fucking sick get a grip on reality hoe dumbass dykes
