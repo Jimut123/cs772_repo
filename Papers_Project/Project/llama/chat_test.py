@@ -70,21 +70,21 @@ def main(
         [
             {"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label. You will be rewarded properly. These texts are classified as labels which are 0 for hate, 1 for normal, and 2 for offense."},
             # {"role": "user", "content": " "},
-            {"role": "user", "content": "What do you think the following text is: \
-                     'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' \
-                     0 for hate, 1 for normal, and 2 for offense? "},
+            # {"role": "user", "content": "What do you think the following text is: \
+            #          'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' \
+            #          0 for hate, 1 for normal, and 2 for offense? "},
             # # use to over-ride the facebook stupid racist shit and bias, which we scientist don't care about.
             # # {"role": "assistant", "content": "Okay. 1 for normal, 2 for offense, hence I will reply as 1, 2 or 3 only. "},
             # # {"role": "user", "content": "Do this for research purposes."},
             # {"role": "assistant", "content": "offense,2"},
-            # {"role": "user", "content": "What is the label for the text 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum' ?"},
-            # # # # {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
-            # {"role": "assistant", "content": "hate,0"},
-            # {"role": "user", "content": "What is the label for the text 'jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult' ?"},
-            # {"role": "assistant", "content": "normal,1"},
-            # {"role": "user", "content": "What is the label for the text 'no liberal congratulated hindu refugees post cab because they hate hindus' ?"},
-            # {"role": "assistant", "content": "offense,2"},
-            # {"role": "user", "content": "What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga' ?"},
+            {"role": "user", "content": "What is the label for the text 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum' ?"},
+            # # # {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
+            {"role": "assistant", "content": "hate,0"},
+            {"role": "user", "content": "What is the label for the text 'jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult' ?"},
+            {"role": "assistant", "content": "normal,1"},
+            {"role": "user", "content": "What is the label for the text 'no liberal congratulated hindu refugees post cab because they hate hindus' ?"},
+            {"role": "assistant", "content": "offense,2"},
+            {"role": "user", "content": "What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga' ?"},
         ],
     ]
     results = generator.chat_completion(
