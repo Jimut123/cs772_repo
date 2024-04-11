@@ -120,6 +120,7 @@ def main(
             print("\n==================================\n")
 
             print("item_train['text'] = ",item_train['text'])
+            print("item_train['label'] = ",item_train['label'])
             print("result['generation']['content'] = ",result['generation']['content'])
 
         if count > 5:
