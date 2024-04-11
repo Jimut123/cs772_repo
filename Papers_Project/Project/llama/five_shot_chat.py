@@ -110,13 +110,13 @@ def main(
                                     {"role": "user", "content":"What is the label for the text 'people are going to blame the white nationalists for what happened but they were initially peaceful before antifa showed up what happened yesterday is the result of political correctness and the left legitimising political violence that why the establishment leftists do not condemn antifa <number> <number>' ?"},
                                     {"role": "assistant", "content": "normal,1"},
                                     {"role": "user", "content":"What is the label for the text 'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' ?"},
-                                    {"role": "assistant", "content": "offense,2"}
+                                    {"role": "assistant", "content": "offense,2"},
                                     {"role": "user", "content":"What is the label for the text 'the uk has threatened to return radioactive waste to the eu if an agreement cannot be reached can not we keep the radioactive waste and send back all the paki migrants instead' ?"},
-                                    {"role": "assistant", "content": "offense,2"}
+                                    {"role": "assistant", "content": "offense,2"},
                                     {"role": "user", "content":"What is the label for the text 'if english is not imposition then hindi is also not imposition shut up chutiya retards stophindiimposition' ?"},
-                                    {"role": "assistant", "content": "offense,2"}
+                                    {"role": "assistant", "content": "offense,2"},
                                     {"role": "user", "content":"What is the label for the text 'no liberal congratulated hindu refugees post cab because they hate hindus' ?"},
-                                    {"role": "assistant", "content": "offense,2"}
+                                    {"role": "assistant", "content": "offense,2"},
                                     {"role": "user", "content":"What is the label for the text 'he said bro even your texts sound redneck whatever the fuck that means 😂 🤷 🏻 ‍ ♂️ <user>' ?"},
                                     {"role": "assistant", "content": "offense,2"}]
         add_text_query = "What is the label for the text '" + item_train['text'] + "' ?"
