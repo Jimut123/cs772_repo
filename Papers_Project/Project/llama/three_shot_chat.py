@@ -58,7 +58,7 @@ def main(
     temperature: float = 1,
     top_p: float = 0.9,
     # max_seq_len: int = 512,
-    max_seq_len: int = 96000,
+    max_seq_len: int = 9600000,
     max_batch_size: int = 8,
     max_gen_len: Optional[int] = None,
 ):
