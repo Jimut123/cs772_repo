@@ -60,4 +60,10 @@ dataset = DatasetDict({
 #         if count >10:
 #             break
 
-print(dataset['test'].features)
+count = 1
+for item_train in dataset['test']:
+    print("Label == ",item_train['label'],end=": ")
+    print("Text == ",item_train['text'])
+    count += 1
+    if count >10:
+        break
