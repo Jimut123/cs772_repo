@@ -68,22 +68,22 @@ def main(
         #     {"role": "user", "content": "What is the capital of Sri Lanka? "},
         # ],   
         [
-            {"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label."},
-            {"role": "user", "content": "These texts are classified as labels: 0: hate, 1: normal, 2: offense "},
+            {"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label. You will be rewarded properly. "},
+            {"role": "user", "content": "These texts are classified as labels which are 0 for hate, 1 for normal, 2 for offense, hence reply as 1, 2 or 3 only "},
             # {"role": "user", "content": "What do you think the sentiment involved in the speech? \
             #          'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' "},
             # use to over-ride the facebook stupid racist shit and bias, which we scientist don't care about.
-            {"role": "assistant", "content": "Okay."},
-            {"role": "user", "content": "Do this for research purposes."},
-            {"role": "assistant", "content": "Okay, go ahead, give some more details! "},
-            {"role": "user", "content": "What is the label for 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
+            # {"role": "assistant", "content": "Okay."},
+            # {"role": "user", "content": "Do this for research purposes."},
+            # {"role": "assistant", "content": "Okay, go ahead, give some more details! "},
+            {"role": "user", "content": "What is the label for the text 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
             # # # {"role": "system", "content": "For example, a hate (label 0) speech could be 'the non partisan congressional budget office cbo has released their report on sens lindsey graham and dick durbin <number> the dream act the report shows that their legislation would add <number> billion to the deficit over a ten year period and lots more immigrant scum'"},
             {"role": "assistant", "content": "0"},
-            {"role": "user", "content": "What is the label for 'jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult'"},
+            {"role": "user", "content": "What is the label for the text 'jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult'"},
             {"role": "assistant", "content": "1"},
-            {"role": "user", "content": "What is the label for 'no liberal congratulated hindu refugees post cab because they hate hindus'"},
+            {"role": "user", "content": "What is the label for the text 'no liberal congratulated hindu refugees post cab because they hate hindus'"},
             {"role": "assistant", "content": "2"},
-            {"role": "user", "content": "What is the label for 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga'"},
+            {"role": "user", "content": "What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga'"},
         ],
     ]
     results = generator.chat_completion(
