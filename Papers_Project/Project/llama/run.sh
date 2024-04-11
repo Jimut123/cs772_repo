@@ -39,14 +39,20 @@
 #     --max_seq_len 9600 --max_batch_size 6
 
 
-# 38363 VRAM of GPU
-torchrun --nproc_per_node 1 five_shot_chat.py \
-    --ckpt_dir llama-2-7b-chat/ \
+# 44592 VRAM of GPU
+# torchrun --nproc_per_node 1 five_shot_chat.py \
+#     --ckpt_dir llama-2-7b-chat/ \
+#     --tokenizer_path tokenizer.model \
+#     --max_seq_len 9600 --max_batch_size 6
+
+
+############ Works - 0 shot versions
+
+#  VRAM of GPU
+torchrun --nproc_per_node 2 zero_shot_chat.py \
+    --ckpt_dir llama-2-13b-chat/ \
     --tokenizer_path tokenizer.model \
-    --max_seq_len 9600 --max_batch_size 6
-
-
-
+    --max_seq_len 512 --max_batch_size 6
 
 
 
