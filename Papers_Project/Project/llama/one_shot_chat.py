@@ -103,7 +103,7 @@ def main(
         dialogs: List[Dialog] = [  
             dialogue_init_1shot_json
         ]
-        
+
         results = generator.chat_completion(
             dialogs,  # type: ignore
             max_gen_len=max_gen_len,
@@ -119,6 +119,7 @@ def main(
             )
             print("\n==================================\n")
 
+            print("item_train['text'] = ",item_train['text'])
             print("result['generation']['content'] = ",result['generation']['content'])
 
         if count > 5:
