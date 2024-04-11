@@ -26,37 +26,38 @@ dataset = DatasetDict({
     for split in ds.keys()
 })
 
-print("Samples from the training dataset:: ",)
-count = 1
-# 0: "hate", 1: "normal", 2: "offense"
-print("Label = 0, Hate")
-for item_train in dataset['train']:
-    if item_train['label'] == 0:
-        print("Label == ",item_train['label'],end=": ")
-        print("Text == ",item_train['text'])
-        count += 1
-        if count >10:
-            break
+# print("Samples from the training dataset:: ",)
+# count = 1
+# # 0: "hate", 1: "normal", 2: "offense"
+# print("Label = 0, Hate")
+# for item_train in dataset['train']:
+#     if item_train['label'] == 0:
+#         print("Label == ",item_train['label'],end=": ")
+#         print("Text == ",item_train['text'])
+#         count += 1
+#         if count >10:
+#             break
 
-count = 1
-# 0: "hate", 1: "normal", 2: "offense"
-print("Label = 1, Normal")
-for item_train in dataset['train']:
-    if item_train['label'] == 1:
-        print("Label == ",item_train['label'],end=": ")
-        print("Text == ",item_train['text'])
-        count += 1
-        if count >10:
-            break
+# count = 1
+# # 0: "hate", 1: "normal", 2: "offense"
+# print("Label = 1, Normal")
+# for item_train in dataset['train']:
+#     if item_train['label'] == 1:
+#         print("Label == ",item_train['label'],end=": ")
+#         print("Text == ",item_train['text'])
+#         count += 1
+#         if count >10:
+#             break
 
-count = 1
-# 0: "hate", 1: "normal", 2: "offense"
-print("Label = 2, Offense")
-for item_train in dataset['train']:
-    if item_train['label'] == 2:
-        print("Label == ",item_train['label'],end=": ")
-        print("Text == ",item_train['text'])
-        count += 1
-        if count >10:
-            break
+# count = 1
+# # 0: "hate", 1: "normal", 2: "offense"
+# print("Label = 2, Offense")
+# for item_train in dataset['train']:
+#     if item_train['label'] == 2:
+#         print("Label == ",item_train['label'],end=": ")
+#         print("Text == ",item_train['text'])
+#         count += 1
+#         if count >10:
+#             break
 
+print(dataset['test'].features)
