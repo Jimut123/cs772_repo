@@ -25,7 +25,7 @@ depending on what model you're using.
 def main(
     ckpt_dir: str,
     tokenizer_path: str,
-    temperature: float = 0.0,
+    temperature: float = 1,
     top_p: float = 0.9,
     # max_seq_len: int = 512,
     max_seq_len: int = 8192,
