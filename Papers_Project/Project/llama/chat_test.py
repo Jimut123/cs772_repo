@@ -64,6 +64,12 @@ def main(
             {"role": "assistant", "content": "offense,2"},
             {"role": "user", "content": "What is the label for the text 'the uk has threatened to return radioactive waste to the eu if an agreement cannot be reached can not we keep the radioactive waste and send back all the paki migrants instead' ?"},
         ],
+        [
+            {"role": "user", "content": "What is the label for the text 'the uk has threatened to return radioactive waste to the eu if an agreement cannot be reached can not we keep the radioactive waste and send back all the paki migrants instead' ?"},
+        ],
+        [
+            {"role": "user", "content": "What is the label for the text 'jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult' ?"},
+        ]
     ]
     results = generator.chat_completion(
         dialogs,  # type: ignore
