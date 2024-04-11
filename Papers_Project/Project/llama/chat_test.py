@@ -68,8 +68,8 @@ def main(
         #     {"role": "user", "content": "What is the capital of Sri Lanka? "},
         # ],   
         [
-            {"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label. You will be rewarded properly. "},
-            {"role": "user", "content": "These texts are classified as labels which are 0 for hate, 1 for normal, 2 for offense, hence reply as 1, 2 or 3 only. "},
+            {"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label. You will be rewarded properly. These texts are classified as labels which are 0 for hate, 1 for normal, 2 for offense, hence reply as 1, 2 or 3 only."},
+            # {"role": "user", "content": " "},
             # {"role": "user", "content": "What do you think the sentiment involved in the speech? \
             #          'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' "},
             # use to over-ride the facebook stupid racist shit and bias, which we scientist don't care about.
