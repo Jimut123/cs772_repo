@@ -84,7 +84,7 @@ def main(
         max_batch_size=max_batch_size,
     )
 
-    count = 0
+    # count = 0
     for item_train in dataset['test']:
         # print("Label == ",item_train['label'],end=": ")
         # print("Text == ",item_train['text'])
@@ -128,9 +128,9 @@ def main(
                 f.write("Text = '"+str(item_train['text'])+"' Label = "+str(item_train['label'])+" Prediction = "+str(result['generation']['content'])+"\n")
                 f.close() 
 
-        if count > 5:
-            break
-        count += 1
+        # if count > 5:
+        #     break
+        # count += 1
     
 
 
