@@ -123,6 +123,11 @@ def main(
             print("item_train['label'] = ",item_train['label'])
             print("result['generation']['content'] = ",result['generation']['content'])
 
+            with open("one_shot_output.txt", 'a') as f:
+                # Text, Original GT, Predicted Label
+                f.write("Text = '"+str(item_train['text'])+"' Label = "+str(item_train['label'])+" Prediction = "+str(result['generation']['content'])+"\n")
+                f.close() 
+
         if count > 5:
             break
         count += 1
