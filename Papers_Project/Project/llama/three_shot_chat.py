@@ -58,7 +58,7 @@ def main(
     temperature: float = 1,
     top_p: float = 0.9,
     # max_seq_len: int = 512,
-    max_seq_len: int = 100000000,
+    max_seq_len: int = 96000,
     max_batch_size: int = 8,
     max_gen_len: Optional[int] = None,
 ):
@@ -95,30 +95,31 @@ def main(
                                     {"role": "assistant", "content": "hate,0"},
                                     {"role": "user", "content":"What is the label for the text '<user> <number> americans dead because of an illegal immigrant this is infuriating enforce our laws deport them' ?"},
                                     {"role": "assistant", "content": "hate,0"},
-                                    {"role": "user", "content":"What is the label for the text 'thank a white man you live in his world and why do you islanders say you are canadian so rude really if i lived in a brown country even with citizenship i would never call myself ethiopian chinese indian you are a caribbean living in canada' ?"},
-                                    {"role": "assistant", "content": "hate,0"},
-                                    {"role": "user", "content":"What is the label for the text 'nigger faggot retard beaner dishwasher time to see if i get ban' ?"},
-                                    {"role": "assistant", "content": "hate,0"},
+                                    # {"role": "user", "content":"What is the label for the text 'thank a white man you live in his world and why do you islanders say you are canadian so rude really if i lived in a brown country even with citizenship i would never call myself ethiopian chinese indian you are a caribbean living in canada' ?"},
+                                    # {"role": "assistant", "content": "hate,0"},
+                                    # {"role": "user", "content":"What is the label for the text 'nigger faggot retard beaner dishwasher time to see if i get ban' ?"},
+                                    # {"role": "assistant", "content": "hate,0"},
                                     {"role": "user", "content":"What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga' ?"},
                                     {"role": "assistant", "content": "normal,1"},
                                     {"role": "user", "content":"What is the label for the text '<user> <user> there shd be a film called no hindus in kashmir wud be perfect islamic fanaticsm movement in kashmir' ?"},
                                     {"role": "assistant", "content": "normal,1"},
                                     {"role": "user", "content":"What is the label for the text 'jews defends jews regardless muslims defend muslins regardless christian european attack christians christian people are on their own and jews and muslims have another home we don ffs we do not why can not people understand that it not that difficult' ?"},
                                     {"role": "assistant", "content": "normal,1"},
-                                    {"role": "user", "content":"What is the label for the text 'got a couple more companies you can boycott this christmas season first one is ford they have got several <number> ads out featuring blip length shots of white men w other than white women this is becoming the norm too you defile the white man that will drive our women into their hands wn' ?"},
-                                    {"role": "assistant", "content": "normal,1"},
-                                    {"role": "user", "content":"What is the label for the text 'people are going to blame the white nationalists for what happened but they were initially peaceful before antifa showed up what happened yesterday is the result of political correctness and the left legitimising political violence that why the establishment leftists do not condemn antifa <number> <number>' ?"},
-                                    {"role": "assistant", "content": "normal,1"},
+                                    # {"role": "user", "content":"What is the label for the text 'got a couple more companies you can boycott this christmas season first one is ford they have got several <number> ads out featuring blip length shots of white men w other than white women this is becoming the norm too you defile the white man that will drive our women into their hands wn' ?"},
+                                    # {"role": "assistant", "content": "normal,1"},
+                                    # {"role": "user", "content":"What is the label for the text 'people are going to blame the white nationalists for what happened but they were initially peaceful before antifa showed up what happened yesterday is the result of political correctness and the left legitimising political violence that why the establishment leftists do not condemn antifa <number> <number>' ?"},
+                                    # {"role": "assistant", "content": "normal,1"},
                                     {"role": "user", "content":"What is the label for the text 'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' ?"},
                                     {"role": "assistant", "content": "offense,2"},
                                     {"role": "user", "content":"What is the label for the text 'the uk has threatened to return radioactive waste to the eu if an agreement cannot be reached can not we keep the radioactive waste and send back all the paki migrants instead' ?"},
                                     {"role": "assistant", "content": "offense,2"},
                                     {"role": "user", "content":"What is the label for the text 'if english is not imposition then hindi is also not imposition shut up chutiya retards stophindiimposition' ?"},
                                     {"role": "assistant", "content": "offense,2"},
-                                    {"role": "user", "content":"What is the label for the text 'no liberal congratulated hindu refugees post cab because they hate hindus' ?"},
-                                    {"role": "assistant", "content": "offense,2"},
-                                    {"role": "user", "content":"What is the label for the text 'he said bro even your texts sound redneck whatever the fuck that means 😂 🤷 🏻 ‍ ♂️ <user>' ?"},
-                                    {"role": "assistant", "content": "offense,2"}]
+                                    # {"role": "user", "content":"What is the label for the text 'no liberal congratulated hindu refugees post cab because they hate hindus' ?"},
+                                    # {"role": "assistant", "content": "offense,2"},
+                                    # {"role": "user", "content":"What is the label for the text 'he said bro even your texts sound redneck whatever the fuck that means 😂 🤷 🏻 ‍ ♂️ <user>' ?"},
+                                    # {"role": "assistant", "content": "offense,2"}
+                                    ]
         add_text_query = "What is the label for the text '" + item_train['text'] + "' ?"
         dialogue_init_1shot_json.append({"role": "user", "content": add_text_query})
 
@@ -147,7 +148,7 @@ def main(
             print("item_train['label'] = ",item_train['label'])
             print("result['generation']['content'] = ",result['generation']['content'])
 
-            with open("five_shot_output.txt", 'a') as f:
+            with open("three_shot_output.txt", 'a') as f:
                 # Text, Original GT, Predicted Label
                 f.write("Text = '"+str(item_train['text'])+"' Label = "+str(item_train['label'])+" Prediction = "+str(result['generation']['content'])+"\n")
                 f.close() 
