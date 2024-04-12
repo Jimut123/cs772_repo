@@ -120,7 +120,7 @@ def main(
                                     # {"role": "user", "content":"What is the label for the text 'he said bro even your texts sound redneck whatever the fuck that means 😂 🤷 🏻 ‍ ♂️ <user>' ?"},
                                     # {"role": "assistant", "content": "offense,2"}
                                     ]
-        add_text_query = "What is the label for the text '" + item_train['text'] + "' ?"
+        add_text_query = "What is the label for the text '" + item_train['text'] + "' ? Please reply either if it is normal by replying 'normal,1', if hate then reply 'hate,0' if offensive then reply 'offense,2' only. "
         dialogue_init_1shot_json.append({"role": "user", "content": add_text_query})
 
         print("dialogue_init_1shot_json = ",dialogue_init_1shot_json)
