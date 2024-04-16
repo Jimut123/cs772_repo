@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 import matplotlib
 
@@ -20,6 +21,46 @@ plt.rc('axes', linewidth=1)
 plt.rc('font', weight='bold')
 matplotlib.rcParams['text.latex.preamble'] = r'\boldmath'
 
+
+
+
+######### Code to calculate metrics and stuffs #########
+def get_metrics(ALL_LABELS, ALL_PREDS, FileName):
+
+    # Calculate accuracy
+    accuracy = accuracy_score(ALL_LABELS, ALL_PREDS)
+
+    # Calculate precision
+    precision = precision_score(ALL_LABELS, ALL_PREDS, average='macro')
+
+    # Calculate recall
+    recall = recall_score(ALL_LABELS, ALL_PREDS, average='macro')
+
+    # Calculate F1-score
+    f1 = f1_score(ALL_LABELS, ALL_PREDS, average='macro')
+
+    accuracy = float(accuracy)*100
+    precision = float(precision)*100
+    recall = float(recall)*100
+    f1 = float(f1)
+
+    print("Accuracy:", accuracy)
+    print("Precision:", precision)
+    print("Recall:", recall)
+    print("F1-score:", f1)
+
+    with open("Metrics_{}.txt".format(FileName), 'a') as f:
+        # Text, Original GT, Predicted Label
+        f.write("Accuracy: "+str(accuracy)+" \n")
+        f.write("Precision: "+str(precision)+" \n")
+        f.write("Recall: "+str(recall)+" \n")
+        f.write("F1-score: "+str(f1)+" \n")
+        f.close() 
+
+
+
+
+######### Code to draw the confusion metrics and stuffs #########
 def draw_cm(ALL_LABELS, ALL_PREDS, labels, FileName):
     # Compute confusion matrix
     cm = confusion_matrix(ALL_LABELS, ALL_PREDS)
@@ -57,6 +98,8 @@ def draw_cm(ALL_LABELS, ALL_PREDS, labels, FileName):
     # Show plot
     plt.show()
 
+
+######### Code to read the file and stuffs #########
 def read_file(filename, ALL_TEXTS, ALL_LABELS, ALL_PREDS):
     err_pred = 0
     # dummy_check = 1
@@ -118,6 +161,7 @@ def read_file(filename, ALL_TEXTS, ALL_LABELS, ALL_PREDS):
 
 
 
+# Check all the filenames
 
 one_shot_7b_filename = "one_shot_output_llama-2-7b-chat.txt"
 one_shot_13b_filename = "one_shot_output_llama-2-13b-chat.txt"
@@ -125,6 +169,7 @@ one_shot_13b_filename = "one_shot_output_llama-2-13b-chat.txt"
 five_shot_7b_filename = "five_shot_output_llama-2-7b-chat.txt"
 five_shot_13b_filename = "five_shot_output_llama-2-13b-chat.txt"
 
+############ using one_shot_7b_filename
 
 ALL_TEXTS = []
 ALL_LABELS = []
@@ -138,4 +183,57 @@ ALL_TEXTS, ALL_LABELS, ALL_PREDS = read_file(one_shot_7b_filename, ALL_TEXTS, AL
 
 classes = [r'\bf{Hate}', r'\bf{Normal}', r'\bf{Offense}']
 draw_cm(ALL_LABELS, ALL_PREDS, classes, FileName='one_shot_7b')
+get_metrics(ALL_LABELS, ALL_PREDS, FileName='one_shot_7b')
 
+
+############ using one_shot_13b_filename
+
+ALL_TEXTS = []
+ALL_LABELS = []
+ALL_PREDS = []
+ALL_TEXTS, ALL_LABELS, ALL_PREDS = read_file(one_shot_13b_filename, ALL_TEXTS, ALL_LABELS, ALL_PREDS)
+
+
+# print("ALL_TEXTS = ",ALL_TEXTS)
+# print("ALL_LABELS = ",ALL_LABELS)
+# print("ALL_PREDS = ",ALL_PREDS)
+
+classes = [r'\bf{Hate}', r'\bf{Normal}', r'\bf{Offense}']
+draw_cm(ALL_LABELS, ALL_PREDS, classes, FileName='one_shot_13b')
+get_metrics(ALL_LABELS, ALL_PREDS, FileName='one_shot_13b')
+
+
+
+
+############ using five_shot_7b_filename
+
+ALL_TEXTS = []
+ALL_LABELS = []
+ALL_PREDS = []
+ALL_TEXTS, ALL_LABELS, ALL_PREDS = read_file(five_shot_7b_filename, ALL_TEXTS, ALL_LABELS, ALL_PREDS)
+
+
+# print("ALL_TEXTS = ",ALL_TEXTS)
+# print("ALL_LABELS = ",ALL_LABELS)
+# print("ALL_PREDS = ",ALL_PREDS)
+
+classes = [r'\bf{Hate}', r'\bf{Normal}', r'\bf{Offense}']
+draw_cm(ALL_LABELS, ALL_PREDS, classes, FileName='five_shot_7b')
+get_metrics(ALL_LABELS, ALL_PREDS, FileName='five_shot_7b')
+
+
+############ using five_shot_13b_filename
+
+ALL_TEXTS = []
+ALL_LABELS = []
+ALL_PREDS = []
+ALL_TEXTS, ALL_LABELS, ALL_PREDS = read_file(five_shot_13b_filename, ALL_TEXTS, ALL_LABELS, ALL_PREDS)
+
+
+# print("ALL_TEXTS = ",ALL_TEXTS)
+# print("ALL_LABELS = ",ALL_LABELS)
+# print("ALL_PREDS = ",ALL_PREDS)
+
+classes = [r'\bf{Hate}', r'\bf{Normal}', r'\bf{Offense}']
+draw_cm(ALL_LABELS, ALL_PREDS, classes, FileName='five_shot_13b')
+get_metrics(ALL_LABELS, ALL_PREDS, FileName='five_shot_13b')
