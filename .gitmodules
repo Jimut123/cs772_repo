@@ -1,0 +1,3 @@
+[submodule "Papers_Project/hf_exps/HateXplain"]
+	path = Papers_Project/hf_exps/HateXplain
+	url = https://github.com/hate-alert/HateXplain
