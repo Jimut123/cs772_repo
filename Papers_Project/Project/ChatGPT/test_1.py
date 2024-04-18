@@ -28,18 +28,18 @@ print(response.choices[0].message.content)
 
 
 
-# load_dotenv()
-# client = OpenAI()
+load_dotenv()
+client = OpenAI()
 
-# # This is  text completion example
-# response = client.chat.completions.create(
-#   model = "gpt-3.5-turbo",
-#   temperature = 0.8,
-#   max_tokens = 3000,
-#   messages = [
-#     {"role": "system", "content": "You are a poet who creates poems that evoke emotions."},
-#     {"role": "user", "content": "Write a short poem for programmers."}
-#   ]
-# )
+# This is  text completion example
+response = client.chat.completions.create(
+  model = "gpt-3.5-turbo",
+  temperature = 0.8,
+  max_tokens = 3000,
+  messages = [
+    {"role": "system", "content": "You are a poet who creates poems that evoke emotions."},
+    {"role": "user", "content": "Write a short poem for programmers."}
+  ]
+)
 
-# print(response.choices[0].message.content)
+print(response.choices[0].message.content)
