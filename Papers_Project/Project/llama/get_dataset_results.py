@@ -128,9 +128,11 @@ def read_file(filename, ALL_TEXTS, ALL_LABELS, ALL_PREDS):
                         print("Prediction == ",pred)
                     
                     if 'I' in str(text_only_pred_first_split):
-                        err_pred += 1
-                        print("Error Prediction == ",text_only_pred_first_split)
-                        continue 
+                        pred = 2
+                        print("Prediction == ",pred)
+                        # err_pred += 1
+                        # print("Error Prediction == ",text_only_pred_first_split)
+                        # continue 
 
 
                     text_only_first_split = str(line).split("Text = ")[1]
@@ -146,6 +148,9 @@ def read_file(filename, ALL_TEXTS, ALL_LABELS, ALL_PREDS):
                     # if len(pred) > 1:
                     #     print("??????? ", pred)
                     #     dummy_check = 0
+                    if text_only_sec_split in ALL_TEXTS:
+                        print("Already present.")
+                        continue
                     ALL_TEXTS.append(str(text_only_sec_split))
                     ALL_PREDS.append(pred)
                     ALL_LABELS.append(int(text_only_label_sec_split))
