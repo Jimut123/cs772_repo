@@ -120,7 +120,7 @@ def main(
                 f"> {result['generation']['role'].capitalize()}: {result['generation']['content']}"
             )
             print("\n==================================\n")
-            print("result['generation']['content'] = ",result['generation']['content'])
+            # print("result['generation']['content'] = ",result['generation']['content'])
 
             DIALOGUE_CONTEXT.append({"role": "assistant", "content": result['generation']['content']})
 
