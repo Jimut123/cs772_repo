@@ -36,8 +36,6 @@ import torch
 import numpy as np
 import os
 
-from datasets import  load_dataset
-
 # ds = load_dataset('json' , data_files= data_root + 'dataset.json')
 
 ds = load_dataset('hatexplain')
