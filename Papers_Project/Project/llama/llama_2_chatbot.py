@@ -97,7 +97,7 @@ def main(
         max_batch_size=max_batch_size,
     )
 
-    text_input = 0
+    text_input = 1
     while int(text_input) != 0:
         text_input = input("Enter the text (Press 0 to exit chat): ")
         if int(text_input) == 0:
