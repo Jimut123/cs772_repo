@@ -36,9 +36,7 @@ import torch
 import numpy as np
 import os
 
-# ds = load_dataset('json' , data_files= data_root + 'dataset.json')
 
-ds = load_dataset('hatexplain')
 
 from datasets import load_dataset, DatasetDict
 
@@ -51,11 +49,6 @@ def preprocess(example):
     del example['rationales']
     return example
 
-# Apply the preprocessing function to each split of the dataset
-dataset = DatasetDict({
-    split: ds[split].map(preprocess)
-    for split in ds.keys()
-})
 
 
 # create a folder if it doesnt exist
