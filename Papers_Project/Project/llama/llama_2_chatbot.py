@@ -97,7 +97,7 @@ def main(
         max_batch_size=max_batch_size,
     )
 
-    text_input = "0000"
+    text_input = "1111"
     while "0000" not in text_input:
         text_input = input("Enter the text (Enter 0000 to exit chat): ")
         if '0000' in text_input:
