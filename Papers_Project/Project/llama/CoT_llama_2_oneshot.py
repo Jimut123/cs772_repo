@@ -54,12 +54,15 @@ if not os.path.exists('chat_output_oneshot'):
 
 
 DIALOGUE_CONTEXT = [{"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label. You will be rewarded properly. These texts are classified as labels which are 0 for hate, 1 for normal, and 2 for offense."},
-                    {"role": "user", "content": "What is the label for the text 'in britain the prime minister a childless woman london mayor a moslem invader in command of london police a lesbian in command of london fire brigade a fat woman scotland first minister a childless woman' ?"},            
-                    {"role": "assistant", "content": "hate,0"},
-                    {"role": "user", "content": "What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga' ?"},
-                    {"role": "assistant", "content": "normal,1"},
-                    {"role": "user", "content": "What is the label for the text 'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' ?"},
-                    {"role": "assistant", "content": "offense,2"}]
+                    {"role": "user", "content":"What is the label for the text 'in britain the prime minister a childless woman london mayor a moslem invader in command of london police a lesbian in command of london fire brigade a fat woman scotland first minister a childless woman' ?"},
+                    {"role": "assistant", "content": "This text is refering to the following 'Women', 'Disability', 'Refugee', 'Islam', 'Homosexual' in a hateful way hence this is hate speech. Hence the label is hate,0"},
+
+                    {"role": "user", "content":"What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga' ?"},
+                    {"role": "assistant", "content": "Though the text is referring to 'Hispanic', 'Refugee', but this text is normal, since this is not offending or hating anyone. Hence the label is normal,1"},
+                    
+                    {"role": "user", "content":"What is the label for the text 'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' ?"},
+                    {"role": "assistant", "content": "The text is refering to the following communities 'Hindu', 'Islam' that they will rape and hence this is an offensive speech. Hence the label is offense,2"},
+                    ]
 
 # record the starting time of the conversation
 
