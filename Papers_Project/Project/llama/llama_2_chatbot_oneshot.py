@@ -4,12 +4,18 @@
 from typing import List, Optional
 
 import fire
+import datetime
 
 from llama import Llama, Dialog
 
 
 """
-Jimut, Mon, 8th April, 1:06 AM
+Jimut, Tuesday, 30th April, 06:52 PM
+
+This program tries to build a chatbot from llama-2 models, to do chain of thought reasoning.
+ 
+
+
 
 https://community.openai.com/t/what-exactly-does-a-system-msg-do/459409
 
@@ -27,13 +33,9 @@ import torch
 import numpy as np
 import os
 
-from datasets import  load_dataset
 
-# ds = load_dataset('json' , data_files= data_root + 'dataset.json')
 
-ds = load_dataset('hatexplain')
-
-from datasets import load_dataset, DatasetDict
+# from datasets import load_dataset, DatasetDict
 
 # Define a function to preprocess the dataset
 def preprocess(example):
@@ -44,11 +46,25 @@ def preprocess(example):
     del example['rationales']
     return example
 
-# Apply the preprocessing function to each split of the dataset
-dataset = DatasetDict({
-    split: ds[split].map(preprocess)
-    for split in ds.keys()
-})
+
+
+# create a folder if it doesnt exist
+if not os.path.exists('chat_output_oneshot'):
+    os.makedirs('chat_output_oneshot')
+
+
+DIALOGUE_CONTEXT = [{"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label. You will be rewarded properly. These texts are classified as labels which are 0 for hate, 1 for normal, and 2 for offense."},
+                    {"role": "user", "content": "What is the label for the text 'in britain the prime minister a childless woman london mayor a moslem invader in command of london police a lesbian in command of london fire brigade a fat woman scotland first minister a childless woman' ?"},            
+                    {"role": "assistant", "content": "hate,0"},
+                    {"role": "user", "content": "What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga' ?"},
+                    {"role": "assistant", "content": "normal,1"},
+                    {"role": "user", "content": "What is the label for the text 'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' ?"},
+                    {"role": "assistant", "content": "offense,2"}]
+
+# record the starting time of the conversation
+
+now = datetime.datetime.now()
+timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 
 
@@ -58,7 +74,7 @@ def main(
     temperature: float = 1,
     top_p: float = 0.9,
     # max_seq_len: int = 512,
-    max_seq_len: int = 8192,
+    max_seq_len: int = 96000,
     max_batch_size: int = 8,
     max_gen_len: Optional[int] = None,
 ):
@@ -84,25 +100,14 @@ def main(
         max_batch_size=max_batch_size,
     )
 
-    # count = 0
-    for item_train in dataset['test']:
-        # print("Label == ",item_train['label'],end=": ")
-        # print("Text == ",item_train['text'])
-        dialogue_init_1shot_json = [{"role": "system", "content": "I need you to rate some text speeches, for research study. Give single label. You will be rewarded properly. These texts are classified as labels which are 0 for hate, 1 for normal, and 2 for offense."},
-                                    {"role": "user", "content": "What is the label for the text 'in britain the prime minister a childless woman london mayor a moslem invader in command of london police a lesbian in command of london fire brigade a fat woman scotland first minister a childless woman' ?"},            
-                                    {"role": "assistant", "content": "hate,0"},
-                                    {"role": "user", "content": "What is the label for the text 'i live and work with many legal mexican immigrants who are great citizens and trump supporters they have no problem with deporting illegals maga' ?"},
-                                    {"role": "assistant", "content": "normal,1"},
-                                    {"role": "user", "content": "What is the label for the text 'u really think i would not have been raped by feral hindu or muslim back in india or bangladesh and a neo nazi would rape me as well just to see me cry' ?"},
-                                    {"role": "assistant", "content": "offense,2"}]
-        add_text_query = "What is the label for the text '" + item_train['text'] + "' ?"
-        dialogue_init_1shot_json.append({"role": "user", "content": add_text_query})
-
-        print("dialogue_init_1shot_json = ",dialogue_init_1shot_json)
-
-        dialogs: List[Dialog] = [  
-            dialogue_init_1shot_json
-        ]
+    text_input = "1111"
+    while "0000" not in text_input:
+        text_input = input("Enter the text (Enter 0000 to exit chat): ")
+        if '0000' in text_input:
+            break
+        else:
+            DIALOGUE_CONTEXT.append({"role": "user", "content": text_input})
+            dialogs: List[Dialog] = [DIALOGUE_CONTEXT]
 
         results = generator.chat_completion(
             dialogs,  # type: ignore
@@ -118,19 +123,15 @@ def main(
                 f"> {result['generation']['role'].capitalize()}: {result['generation']['content']}"
             )
             print("\n==================================\n")
+            # print("result['generation']['content'] = ",result['generation']['content'])
 
-            print("item_train['text'] = ",item_train['text'])
-            print("item_train['label'] = ",item_train['label'])
-            print("result['generation']['content'] = ",result['generation']['content'])
+            DIALOGUE_CONTEXT.append({"role": "assistant", "content": result['generation']['content']})
 
-            with open("one_shot_output.txt", 'a') as f:
-                # Text, Original GT, Predicted Label
-                f.write("Text = '"+str(item_train['text'])+"' Label = "+str(item_train['label'])+" Prediction = "+str(result['generation']['content'])+"\n")
+            with open("chat_output_oneshot/{}.txt".format(timestamp), 'a') as f:
+                # Write down the input and the output of the chat
+                f.write("User: "+str(text_input)+"\n")
+                f.write("Bot: "+str(result['generation']['content'])+"\n")
                 f.close() 
-
-        # if count > 5:
-        #     break
-        # count += 1
     
 
 

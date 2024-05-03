@@ -13,10 +13,7 @@ from llama import Llama, Dialog
 Jimut, Tuesday, 30th April, 06:52 PM
 
 This program tries to build a chatbot from llama-2 models, to do chain of thought reasoning.
-
-#TODO:
-1. Dump the current conversation to a file, using timestamp_name.
-2. 
+ 
 
 
 
